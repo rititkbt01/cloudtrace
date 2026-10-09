@@ -1,0 +1,13 @@
+[project]
+name = "cloudtrace"
+version = "0.1.0"
+description = "Explainable detection of risky cloud account changes from CloudTrail-style logs (internship project)"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
