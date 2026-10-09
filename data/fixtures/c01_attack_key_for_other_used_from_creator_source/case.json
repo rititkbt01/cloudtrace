@@ -1,0 +1,48 @@
+{
+  "case_id": "C01",
+  "title": "Key created for another account, first used from the creator's own address",
+  "ground_truth": "attack",
+  "category": "attack",
+  "applies_to_checks": [
+    "check1",
+    "check2"
+  ],
+  "description": "admin-a creates a key for svc-b. Four minutes later the new key is used from admin-a's address, not from svc-b's usual address. This is the worked example in the Week 1 report.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c01-004",
+        "verdict": "ALERT",
+        "reason": "KEY_FOR_OTHER_ACCOUNT",
+        "severity": "low",
+        "score": 1,
+        "score_breakdown": {
+          "cross_identity": 1
+        }
+      },
+      {
+        "check": "check2",
+        "event_id": "c01-005",
+        "verdict": "ALERT",
+        "reason": "KEY_USED_FROM_NEW_SOURCE",
+        "severity": "high",
+        "score": 8,
+        "score_breakdown": {
+          "cross_identity": 1,
+          "first_use_in_window": 2,
+          "new_source": 2,
+          "creator_source": 3
+        }
+      }
+    ]
+  }
+}

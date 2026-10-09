@@ -1,0 +1,40 @@
+{
+  "case_id": "C05",
+  "title": "A key is handed to a colleague who uses it from their usual address",
+  "ground_truth": "normal",
+  "category": "normal",
+  "applies_to_checks": [
+    "check1",
+    "check2"
+  ],
+  "description": "admin-a creates a key for bob. Twenty minutes later bob uses it from the address he always uses. Check 1 gives a low note; Check 2 must not raise an alert.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c05-004",
+        "verdict": "ALERT",
+        "reason": "KEY_FOR_OTHER_ACCOUNT",
+        "severity": "low",
+        "score": 1,
+        "score_breakdown": {
+          "cross_identity": 1
+        }
+      },
+      {
+        "check": "check2",
+        "event_id": "c05-005",
+        "verdict": "IGNORED",
+        "reason": "SOURCE_ALREADY_SEEN"
+      }
+    ]
+  }
+}

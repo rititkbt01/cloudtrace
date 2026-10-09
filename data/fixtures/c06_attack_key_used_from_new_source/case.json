@@ -1,0 +1,47 @@
+{
+  "case_id": "C06",
+  "title": "Key used within the window from a never-seen address",
+  "ground_truth": "attack",
+  "category": "attack",
+  "applies_to_checks": [
+    "check1",
+    "check2"
+  ],
+  "description": "admin-a creates a key for svc-b. Ten minutes later it is used from a third address that svc-b never used before and that is not admin-a's address.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c06-004",
+        "verdict": "ALERT",
+        "reason": "KEY_FOR_OTHER_ACCOUNT",
+        "severity": "low",
+        "score": 1,
+        "score_breakdown": {
+          "cross_identity": 1
+        }
+      },
+      {
+        "check": "check2",
+        "event_id": "c06-005",
+        "verdict": "ALERT",
+        "reason": "KEY_USED_FROM_NEW_SOURCE",
+        "severity": "high",
+        "score": 5,
+        "score_breakdown": {
+          "cross_identity": 1,
+          "first_use_in_window": 2,
+          "new_source": 2
+        }
+      }
+    ]
+  }
+}

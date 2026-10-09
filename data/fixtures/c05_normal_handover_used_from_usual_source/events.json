@@ -1,0 +1,123 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEBOB",
+        "arn": "arn:aws:iam::123456789012:user/bob",
+        "accountId": "123456789012",
+        "accessKeyId": "AKIAEXAMPLEBOB00001",
+        "userName": "bob"
+      },
+      "eventTime": "2026-01-01T09:10:00Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "ListBuckets",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.77",
+      "userAgent": "aws-cli/2.15.0 Python/3.11.8 Windows/10",
+      "requestParameters": null,
+      "responseElements": null,
+      "eventID": "c05-001",
+      "eventType": "AwsApiCall",
+      "recipientAccountId": "123456789012"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEBOB",
+        "arn": "arn:aws:iam::123456789012:user/bob",
+        "accountId": "123456789012",
+        "accessKeyId": "AKIAEXAMPLEBOB00001",
+        "userName": "bob"
+      },
+      "eventTime": "2026-01-01T09:25:00Z",
+      "eventSource": "sts.amazonaws.com",
+      "eventName": "GetCallerIdentity",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.77",
+      "userAgent": "aws-cli/2.15.0 Python/3.11.8 Windows/10",
+      "requestParameters": null,
+      "responseElements": null,
+      "eventID": "c05-002",
+      "eventType": "AwsApiCall",
+      "recipientAccountId": "123456789012"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEBOB",
+        "arn": "arn:aws:iam::123456789012:user/bob",
+        "accountId": "123456789012",
+        "accessKeyId": "AKIAEXAMPLEBOB00001",
+        "userName": "bob"
+      },
+      "eventTime": "2026-01-01T09:40:00Z",
+      "eventSource": "ec2.amazonaws.com",
+      "eventName": "DescribeInstances",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.77",
+      "userAgent": "aws-cli/2.15.0 Python/3.11.8 Windows/10",
+      "requestParameters": null,
+      "responseElements": null,
+      "eventID": "c05-003",
+      "eventType": "AwsApiCall",
+      "recipientAccountId": "123456789012"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEADMINA",
+        "arn": "arn:aws:iam::123456789012:user/admin-a",
+        "accountId": "123456789012",
+        "accessKeyId": "AKIAEXAMPLEADMINA01",
+        "userName": "admin-a"
+      },
+      "eventTime": "2026-01-01T10:00:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userAgent": "aws-cli/2.15.0 Python/3.11.8 Windows/10",
+      "requestParameters": {
+        "userName": "bob"
+      },
+      "responseElements": {
+        "accessKey": {
+          "accessKeyId": "AKIAEXAMPLENEWKEY01",
+          "status": "Active",
+          "userName": "bob",
+          "createDate": "Jan 1, 2026 10:00:00"
+        }
+      },
+      "eventID": "c05-004",
+      "eventType": "AwsApiCall",
+      "recipientAccountId": "123456789012"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEBOB",
+        "arn": "arn:aws:iam::123456789012:user/bob",
+        "accountId": "123456789012",
+        "accessKeyId": "AKIAEXAMPLENEWKEY01",
+        "userName": "bob"
+      },
+      "eventTime": "2026-01-01T10:20:00Z",
+      "eventSource": "sts.amazonaws.com",
+      "eventName": "GetCallerIdentity",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.77",
+      "userAgent": "aws-cli/2.15.0 Python/3.11.8 Windows/10",
+      "requestParameters": null,
+      "responseElements": null,
+      "eventID": "c05-005",
+      "eventType": "AwsApiCall",
+      "recipientAccountId": "123456789012"
+    }
+  ]
+}

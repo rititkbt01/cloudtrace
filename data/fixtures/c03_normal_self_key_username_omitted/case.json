@@ -1,0 +1,28 @@
+{
+  "case_id": "C03",
+  "title": "A user creates a key for themselves (name left out)",
+  "ground_truth": "normal",
+  "category": "normal",
+  "applies_to_checks": [
+    "check1"
+  ],
+  "description": "admin-a creates a key and leaves the user name out. AWS then uses the caller, so the target is admin-a. A rule that only compares names would get this wrong.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c03-001",
+        "verdict": "IGNORED",
+        "reason": "SELF_KEY_IMPLICIT"
+      }
+    ]
+  }
+}

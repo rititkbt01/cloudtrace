@@ -1,0 +1,53 @@
+{
+  "case_id": "C09",
+  "title": "Duplicate record and events in the wrong order",
+  "ground_truth": "attack",
+  "category": "edge",
+  "applies_to_checks": [
+    "quality",
+    "check1",
+    "check2"
+  ],
+  "description": "The same attack as C01, but the file lists events out of time order and repeats the CreateAccessKey record. The result must be the same as C01 and the quality check must report one duplicate removed.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c09-004",
+        "verdict": "ALERT",
+        "reason": "KEY_FOR_OTHER_ACCOUNT",
+        "severity": "low",
+        "score": 1,
+        "score_breakdown": {
+          "cross_identity": 1
+        }
+      },
+      {
+        "check": "check2",
+        "event_id": "c09-005",
+        "verdict": "ALERT",
+        "reason": "KEY_USED_FROM_NEW_SOURCE",
+        "severity": "high",
+        "score": 8,
+        "score_breakdown": {
+          "cross_identity": 1,
+          "first_use_in_window": 2,
+          "new_source": 2,
+          "creator_source": 3
+        }
+      }
+    ],
+    "quality": {
+      "duplicates_removed": 1,
+      "reordered": true
+    }
+  }
+}

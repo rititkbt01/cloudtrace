@@ -1,0 +1,28 @@
+{
+  "case_id": "C10",
+  "title": "A failed attempt to create a key",
+  "ground_truth": "normal",
+  "category": "edge",
+  "applies_to_checks": [
+    "check1"
+  ],
+  "description": "admin-a tries to create a key for svc-b but AWS refuses (AccessDenied). No key exists, so this must not raise an alert.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c10-001",
+        "verdict": "IGNORED",
+        "reason": "FAILED_CALL"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "case_id": "C08",
+  "title": "Full admin rights granted, then a key created",
+  "ground_truth": "attack",
+  "category": "attack",
+  "applies_to_checks": [
+    "check1",
+    "check3"
+  ],
+  "description": "admin-a gives svc-b the AdministratorAccess policy, then 20 minutes later creates a key for svc-b. The key is never used in this log.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c08-002",
+        "verdict": "ALERT",
+        "reason": "KEY_FOR_OTHER_ACCOUNT",
+        "severity": "low",
+        "score": 1,
+        "score_breakdown": {
+          "cross_identity": 1
+        }
+      },
+      {
+        "check": "check3",
+        "event_id": "c08-002",
+        "verdict": "ALERT",
+        "reason": "GRANT_THEN_CREDENTIAL",
+        "severity": "medium",
+        "score": 4,
+        "score_breakdown": {
+          "cross_identity": 1,
+          "elevated_grant": 3
+        }
+      }
+    ]
+  }
+}

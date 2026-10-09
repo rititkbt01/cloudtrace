@@ -1,0 +1,60 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEADMINA",
+        "arn": "arn:aws:iam::123456789012:user/admin-a",
+        "accountId": "123456789012",
+        "accessKeyId": "AKIAEXAMPLEADMINA01",
+        "userName": "admin-a"
+      },
+      "eventTime": "2026-01-01T10:00:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "AttachUserPolicy",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userAgent": "aws-cli/2.15.0 Python/3.11.8 Windows/10",
+      "requestParameters": {
+        "userName": "svc-b",
+        "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      },
+      "responseElements": null,
+      "eventID": "c08-001",
+      "eventType": "AwsApiCall",
+      "recipientAccountId": "123456789012"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEADMINA",
+        "arn": "arn:aws:iam::123456789012:user/admin-a",
+        "accountId": "123456789012",
+        "accessKeyId": "AKIAEXAMPLEADMINA01",
+        "userName": "admin-a"
+      },
+      "eventTime": "2026-01-01T10:20:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userAgent": "aws-cli/2.15.0 Python/3.11.8 Windows/10",
+      "requestParameters": {
+        "userName": "svc-b"
+      },
+      "responseElements": {
+        "accessKey": {
+          "accessKeyId": "AKIAEXAMPLENEWKEY01",
+          "status": "Active",
+          "userName": "svc-b",
+          "createDate": "Jan 1, 2026 10:20:00"
+        }
+      },
+      "eventID": "c08-002",
+      "eventType": "AwsApiCall",
+      "recipientAccountId": "123456789012"
+    }
+  ]
+}

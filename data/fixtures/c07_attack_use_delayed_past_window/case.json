@@ -1,0 +1,40 @@
+{
+  "case_id": "C07",
+  "title": "Attacker waits three hours before using the key",
+  "ground_truth": "attack",
+  "category": "known_limitation",
+  "applies_to_checks": [
+    "check1",
+    "check2"
+  ],
+  "description": "Same as C06, but the key is first used three hours later. The 60-minute window means Check 2 will miss it. This is a known limit, kept on purpose to measure how much a patient attacker weakens the check.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c07-004",
+        "verdict": "ALERT",
+        "reason": "KEY_FOR_OTHER_ACCOUNT",
+        "severity": "low",
+        "score": 1,
+        "score_breakdown": {
+          "cross_identity": 1
+        }
+      },
+      {
+        "check": "check2",
+        "event_id": "c07-005",
+        "verdict": "IGNORED",
+        "reason": "OUTSIDE_WINDOW"
+      }
+    ]
+  }
+}

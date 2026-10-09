@@ -1,0 +1,30 @@
+{
+  "case_id": "C04",
+  "title": "An approved automation role creates a key",
+  "ground_truth": "normal",
+  "category": "normal",
+  "applies_to_checks": [
+    "check1"
+  ],
+  "description": "The role ci-deploy is on the approved list and creates a key for svc-b as part of a deployment.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [
+      "ci-deploy"
+    ],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c04-001",
+        "verdict": "IGNORED",
+        "reason": "ALLOW_LISTED_ROLE"
+      }
+    ]
+  }
+}

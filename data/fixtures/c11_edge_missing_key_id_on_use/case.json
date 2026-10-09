@@ -1,0 +1,40 @@
+{
+  "case_id": "C11",
+  "title": "The record after the key is created has no key ID",
+  "ground_truth": "attack",
+  "category": "edge",
+  "applies_to_checks": [
+    "check1",
+    "check2"
+  ],
+  "description": "A key is created for svc-b, then an event by svc-b arrives with an empty key ID. AWS documents that this field can be empty. The tool cannot link the event to the new key, so it must say 'not checked' instead of guessing or calling it safe.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c11-004",
+        "verdict": "ALERT",
+        "reason": "KEY_FOR_OTHER_ACCOUNT",
+        "severity": "low",
+        "score": 1,
+        "score_breakdown": {
+          "cross_identity": 1
+        }
+      },
+      {
+        "check": "check2",
+        "event_id": "c11-005",
+        "verdict": "NOT_CHECKED",
+        "reason": "MISSING_KEY_ID"
+      }
+    ]
+  }
+}

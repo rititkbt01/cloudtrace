@@ -1,0 +1,28 @@
+{
+  "case_id": "C02",
+  "title": "A user creates a key for themselves (name given)",
+  "ground_truth": "normal",
+  "category": "normal",
+  "applies_to_checks": [
+    "check1"
+  ],
+  "description": "admin-a creates a key for admin-a and names the user explicitly. Normal key rotation.",
+  "config": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "expected": {
+    "verdicts": [
+      {
+        "check": "check1",
+        "event_id": "c02-001",
+        "verdict": "IGNORED",
+        "reason": "SELF_KEY"
+      }
+    ]
+  }
+}
