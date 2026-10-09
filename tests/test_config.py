@@ -20,3 +20,19 @@ def test_defaults_object_is_not_shared():
 def test_bad_settings_are_rejected(bad):
     with pytest.raises(ConfigError):
         resolve(bad)
+
+
+def test_load_default_settings_file():
+    from pathlib import Path
+
+    from cloudtrace.config import load
+    assert load(Path(__file__).resolve().parent.parent / "rules" / "default.toml") == DEFAULTS
+
+
+def test_load_errors_are_clear(tmp_path):
+    from cloudtrace.config import load
+    with pytest.raises(ConfigError, match="Cannot read"):
+        load(tmp_path / "missing.toml")
+    (tmp_path / "bad.toml").write_text("not = = toml")
+    with pytest.raises(ConfigError, match="not valid TOML"):
+        load(tmp_path / "bad.toml")

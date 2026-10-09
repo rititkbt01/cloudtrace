@@ -1,0 +1,15 @@
+# CloudTrace settings. Pass this file with:  cloudtrace analyze LOG.json --config rules/default.toml
+# Every setting is optional; anything left out uses the default shown here.
+
+# Minutes after a key is created in which we look for its first use (Check 2).
+window_minutes = 60
+
+# Earlier events an identity needs before its "usual addresses" are trusted (Check 2).
+baseline_min_events = 3
+
+# Names of approved automation roles that may create keys for others (Check 1).
+# Example: allowed_roles = ["ci-deploy", "terraform-apply"]
+allowed_roles = []
+
+# Policies treated as strong rights when granted (Check 3).
+elevated_policies = ["arn:aws:iam::aws:policy/AdministratorAccess"]

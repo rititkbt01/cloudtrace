@@ -33,3 +33,19 @@ def resolve(config: dict | None) -> dict:
         if not isinstance(v, list) or not all(isinstance(x, str) for x in v):
             raise ConfigError(f"{name} must be a list of text values")
     return out
+
+
+def load(path) -> dict:
+    """Read a TOML settings file (see rules/default.toml) and return resolved settings."""
+    import tomllib
+    from pathlib import Path
+
+    p = Path(path)
+    try:
+        with p.open("rb") as f:
+            data = tomllib.load(f)
+    except OSError as err:
+        raise ConfigError(f"Cannot read settings file {p.name}: {err}") from err
+    except tomllib.TOMLDecodeError as err:
+        raise ConfigError(f"Settings file {p.name} is not valid TOML: {err}") from err
+    return resolve(data)

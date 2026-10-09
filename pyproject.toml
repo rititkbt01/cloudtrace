@@ -1,9 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "cloudtrace"
 version = "0.1.0"
 description = "Explainable detection of risky cloud account changes from CloudTrail-style logs (internship project)"
 readme = "README.md"
 requires-python = ">=3.11"
+
+[project.scripts]
+cloudtrace = "cloudtrace.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
