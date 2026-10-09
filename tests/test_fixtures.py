@@ -10,7 +10,7 @@ CHECKS = {"quality", "check1", "check2", "check3"}
 VERDICTS = {"ALERT", "IGNORED", "NOT_CHECKED"}
 REASONS = {
     "check1": {"KEY_FOR_OTHER_ACCOUNT", "SELF_KEY", "SELF_KEY_IMPLICIT",
-               "ALLOW_LISTED_ROLE", "FAILED_CALL"},
+               "ALLOW_LISTED_ROLE", "FAILED_CALL", "TARGET_UNKNOWN"},
     "check2": {"KEY_USED_FROM_NEW_SOURCE", "SOURCE_ALREADY_SEEN", "OUTSIDE_WINDOW",
                "MISSING_KEY_ID"},
     "check3": {"GRANT_THEN_CREDENTIAL"},

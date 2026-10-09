@@ -34,6 +34,8 @@ class Event:
     request: dict
     response: dict
     raw: dict = field(repr=False, default_factory=dict)
+    identity_user_name: str | None = None  # userIdentity.userName (IAM users)
+    role_name: str | None = None  # role behind an assumed-role session, if any
 
 
 @dataclass
@@ -88,6 +90,7 @@ def _to_event(record: dict, time: datetime) -> Event:
     ident = ident if isinstance(ident, dict) else {}
     request = record.get("requestParameters")
     response = record.get("responseElements")
+    issuer = _dig(record, "userIdentity.sessionContext.sessionIssuer.userName")
     return Event(
         event_id=record["eventID"],
         time=time,
@@ -102,6 +105,8 @@ def _to_event(record: dict, time: datetime) -> Event:
         request=request if isinstance(request, dict) else {},
         response=response if isinstance(response, dict) else {},
         raw=record,
+        identity_user_name=ident.get("userName") or None,
+        role_name=issuer if isinstance(issuer, str) and issuer else None,
     )
 
 

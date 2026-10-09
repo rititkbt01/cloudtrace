@@ -5,8 +5,8 @@ from pathlib import Path
 FIXTURES = Path(__file__).resolve().parent.parent / "data" / "fixtures"
 
 # Checks that are built. Add a name here when you finish building that check.
-# Stage 3 adds "quality" and "check1"; Stage 5 adds "check2" and "check3".
-IMPLEMENTED = set()
+# "quality" and "check1" were built in Stages 2-3; Stage 5 adds "check2" and "check3".
+IMPLEMENTED = {"quality", "check1"}
 
 SEVERITY_BANDS = {"low": (1, 2), "medium": (3, 4), "high": (5, 99)}
 

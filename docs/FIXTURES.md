@@ -115,3 +115,9 @@ result["quality"]                   # {"duplicates_removed": int, "reordered": b
 
 Expected answers are written first. We never change an expected answer only to make a test pass.
 If a case is wrong, we fix the case, explain why in the commit message, and note it in the daily log.
+
+## Added in Stage 3: reason `TARGET_UNKNOWN`
+
+Check 1 returns `NOT_CHECKED / TARGET_UNKNOWN` when the log does not show who a key was made for
+(no user name in the request or the reply, and the caller is not an IAM user). No fixture covers it yet; it is
+covered by `tests/test_check1.py`. The tool says "not checked" instead of guessing.
