@@ -31,3 +31,17 @@ def test_c09_gives_same_check1_decision_as_c01():
         return [(v["verdict"], v["reason"], v["score"])
                 for v in analyze(records, case["config"])["verdicts"]]
     assert check1("c09") == check1("c01")
+
+
+def test_c01_is_high_and_c05_is_not():
+    def top(prefix):
+        case, records = load_case(next(c for c in case_dirs() if c.name.startswith(prefix)))
+        rows = analyze(records, case["config"])["verdicts"]
+        return max((r["score"] for r in rows if r["verdict"] == "ALERT"), default=0)
+    assert top("c01") == 8 and top("c06") == 5 and top("c08") == 4 and top("c05") == 1
+
+
+def test_rows_are_in_time_order():
+    case, records = load_case(next(c for c in case_dirs() if c.name.startswith("c09")))
+    times = [r["evidence"]["time"] for r in analyze(records, case["config"])["verdicts"]]
+    assert times == sorted(times)

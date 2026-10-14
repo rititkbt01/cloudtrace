@@ -58,9 +58,15 @@ def test_default_settings_file_is_valid(capsys):
     assert cli.main(["analyze", str(C01), "--config", str(default)]) == 0
 
 
-@pytest.mark.parametrize("level,code", [("low", 1), ("medium", 0), ("high", 0)])
-def test_fail_on(level, code):
-    assert cli.main(["analyze", str(C01), "--fail-on", level]) == code  # C01 has a low finding
+C05 = next(c for c in case_dirs() if c.name.startswith("c05")) / "events.json"
+
+
+@pytest.mark.parametrize("path,level,code", [
+    (C05, "low", 1), (C05, "medium", 0), (C05, "high", 0),  # C05 has only a low finding
+    (C01, "low", 1), (C01, "medium", 1), (C01, "high", 1),  # C01 has a high finding
+])
+def test_fail_on(path, level, code):
+    assert cli.main(["analyze", str(path), "--fail-on", level]) == code
 
 
 def test_no_findings_never_fails():

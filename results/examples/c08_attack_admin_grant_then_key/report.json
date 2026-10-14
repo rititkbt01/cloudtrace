@@ -1,0 +1,115 @@
+{
+  "tool": "cloudtrace",
+  "version": "0.1.0",
+  "input": "c08_attack_admin_grant_then_key/events.json",
+  "settings": {
+    "window_minutes": 60,
+    "baseline_min_events": 3,
+    "allowed_roles": [],
+    "elevated_policies": [
+      "arn:aws:iam::aws:policy/AdministratorAccess"
+    ]
+  },
+  "summary": {
+    "records_read": 2,
+    "usable_events": 2,
+    "coverage_percent": 100.0,
+    "candidate_events": 1,
+    "alerts": {
+      "high": 0,
+      "medium": 1,
+      "low": 1
+    },
+    "ignored": 0,
+    "not_checked": 0
+  },
+  "quality": {
+    "total_records": 2,
+    "usable_events": 2,
+    "duplicates_removed": 0,
+    "conflicting_duplicates": 0,
+    "reordered": false,
+    "unusable": [],
+    "missing_fields": {},
+    "time_start": "2026-01-01T10:00:00Z",
+    "time_end": "2026-01-01T10:20:00Z"
+  },
+  "verdicts": [
+    {
+      "check": "check1",
+      "event_id": "c08-002",
+      "verdict": "ALERT",
+      "reason": "KEY_FOR_OTHER_ACCOUNT",
+      "explanation": "admin-a created an access key for a different identity (svc-b).",
+      "evidence": {
+        "time": "2026-01-01T10:20:00Z",
+        "caller": "arn:aws:iam::123456789012:user/admin-a",
+        "target_user": "svc-b",
+        "target_known_from": "request",
+        "source_ip": "203.0.113.10",
+        "new_key_id": "AKIAEXAMPLENEWKEY01"
+      },
+      "severity": "low",
+      "score": 1,
+      "score_breakdown": {
+        "cross_identity": 1
+      }
+    },
+    {
+      "check": "check3",
+      "event_id": "c08-002",
+      "verdict": "ALERT",
+      "reason": "GRANT_THEN_CREDENTIAL",
+      "explanation": "svc-b was given arn:aws:iam::aws:policy/AdministratorAccess 20.0 minutes before a new access key was created for them by a different identity.",
+      "evidence": {
+        "time": "2026-01-01T10:20:00Z",
+        "grant_event_id": "c08-001",
+        "grant_time": "2026-01-01T10:00:00Z",
+        "policy_arn": "arn:aws:iam::aws:policy/AdministratorAccess",
+        "granted_by": "arn:aws:iam::123456789012:user/admin-a",
+        "minutes_between": 20.0,
+        "key_made_for": "svc-b",
+        "new_key_id": "AKIAEXAMPLENEWKEY01"
+      },
+      "severity": "medium",
+      "score": 4,
+      "score_breakdown": {
+        "cross_identity": 1,
+        "elevated_grant": 3
+      }
+    }
+  ],
+  "key_history": [
+    {
+      "key_id": "AKIAEXAMPLENEWKEY01",
+      "created_event_id": "c08-002",
+      "created_time": "2026-01-01T10:20:00Z",
+      "creator_arn": "arn:aws:iam::123456789012:user/admin-a",
+      "creator_ip": "203.0.113.10",
+      "target_user": "svc-b",
+      "uses": []
+    }
+  ],
+  "baseline_b1": {
+    "name": "B1 (SigmaHQ: AWS IAM Backdoor Users Keys)",
+    "alerts": [
+      {
+        "rule": "B1",
+        "event_id": "c08-002",
+        "time": "2026-01-01T10:20:00Z",
+        "caller": "arn:aws:iam::123456789012:user/admin-a",
+        "target_user": "svc-b"
+      }
+    ],
+    "comparison": [
+      {
+        "event_id": "c08-002",
+        "b1_alerts": 1,
+        "check1_verdict": "ALERT",
+        "check1_reason": "KEY_FOR_OTHER_ACCOUNT",
+        "category": "both_alert",
+        "note": "Both flag this event."
+      }
+    ]
+  }
+}

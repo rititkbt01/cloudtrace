@@ -121,3 +121,9 @@ If a case is wrong, we fix the case, explain why in the commit message, and note
 Check 1 returns `NOT_CHECKED / TARGET_UNKNOWN` when the log does not show who a key was made for
 (no user name in the request or the reply, and the caller is not an IAM user). No fixture covers it yet; it is
 covered by `tests/test_check1.py`. The tool says "not checked" instead of guessing.
+
+## Added in Stage 5: reason `BASELINE_TOO_SMALL`
+
+Check 2 returns `NOT_CHECKED / BASELINE_TOO_SMALL` when the key's owner has fewer than
+`baseline_min_events` earlier events, so "usual address" cannot be judged. Covered by
+`tests/test_check2.py`. From Stage 5 every case in this folder must pass (no more xfail).

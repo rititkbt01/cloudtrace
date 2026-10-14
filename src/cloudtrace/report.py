@@ -92,7 +92,7 @@ def to_markdown(report: dict) -> str:
            f"- Time range in log: {q['time_start'] or 'n/a'} to {q['time_end'] or 'n/a'}",
            (f"- Records read: {s['records_read']}; usable: {s['usable_events']} "
             f"({s['coverage_percent']}%)"),
-           f"- Key-creation events examined: {s['candidate_events']}", ""]
+           f"- Events judged by the checks: {s['candidate_events']}", ""]
 
     out += ["## Summary", "", "| Result | Count |", "|---|---|",
             f"| Findings, high | {s['alerts']['high']} |",

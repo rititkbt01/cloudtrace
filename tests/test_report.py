@@ -14,8 +14,8 @@ def build(prefix, **kw):
 def test_summary_counts_c01():
     s = build("c01")["summary"]
     assert s["records_read"] == 5 and s["usable_events"] == 5 and s["coverage_percent"] == 100.0
-    assert s["alerts"] == {"high": 0, "medium": 0, "low": 1}
-    assert s["candidate_events"] == 1
+    assert s["alerts"] == {"high": 1, "medium": 0, "low": 1}
+    assert s["candidate_events"] == 2  # the key creation and the key's first use
 
 
 def test_summary_counts_ignored_and_not_checked():
@@ -72,5 +72,6 @@ def test_every_case_makes_a_report(cdir):
 
 
 def test_highest_severity():
-    assert report.highest_severity(build("c01")) == "low"
+    assert report.highest_severity(build("c01")) == "high"
+    assert report.highest_severity(build("c05")) == "low"
     assert report.highest_severity(build("c02")) is None
