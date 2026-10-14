@@ -132,3 +132,10 @@ def test_log_order_does_not_change_the_result(shuffle):
     if shuffle:
         records = list(reversed(records))
     assert [r["reason"] for r in check2(records)] == ["KEY_USED_FROM_NEW_SOURCE"]
+
+
+def test_missing_source_address_is_not_checked_not_an_alert():
+    records = base_log()
+    del records[-1]["sourceIPAddress"]
+    (row,) = check2(records)
+    assert (row["verdict"], row["reason"]) == ("NOT_CHECKED", "MISSING_SOURCE_IP")

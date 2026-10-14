@@ -8,8 +8,9 @@ applies wins:
 
   1. First use is later than the window (default 60 min)      -> IGNORED     OUTSIDE_WINDOW
   2. The owner has too few earlier events to know "usual"     -> NOT_CHECKED BASELINE_TOO_SMALL
-  3. The address was already used by the owner before         -> IGNORED     SOURCE_ALREADY_SEEN
-  4. Otherwise                                                -> ALERT       KEY_USED_FROM_NEW_SOURCE
+  3. The first-use event has no source address               -> NOT_CHECKED MISSING_SOURCE_IP
+  4. The address was already used by the owner before         -> IGNORED     SOURCE_ALREADY_SEEN
+  5. Otherwise                                                -> ALERT       KEY_USED_FROM_NEW_SOURCE
 
 If no event is signed with the key, but the owner has an event in the window whose key ID is
 empty (so it cannot be linked), the result is NOT_CHECKED / MISSING_KEY_ID on that event.
@@ -70,6 +71,12 @@ def run(events: list[Event], config: dict, history: dict, check1_rows: list[dict
                     f"{owner} has only {len(earlier)} earlier event(s) in this log "
                     f"(needs {config['baseline_min_events']}), so their usual addresses "
                     "are not known.", base_evidence))
+                continue
+            if not use.source_ip:
+                rows.append(make_row(
+                    CHECK, use_event, "NOT_CHECKED", "MISSING_SOURCE_IP",
+                    "The event that first used the key has no source address, so we cannot "
+                    "say whether it is new. The tool does not guess.", base_evidence))
                 continue
             if use.source_ip in known:
                 rows.append(make_row(

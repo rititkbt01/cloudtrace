@@ -21,8 +21,9 @@ and which later events were signed with it.
 |---|---|---|---|
 | 1 | First use is later than the window | IGNORED | OUTSIDE_WINDOW |
 | 2 | Owner has too few earlier events | NOT_CHECKED | BASELINE_TOO_SMALL |
-| 3 | Address was already used by the owner | IGNORED | SOURCE_ALREADY_SEEN |
-| 4 | Otherwise | ALERT | KEY_USED_FROM_NEW_SOURCE |
+| 3 | The first-use event has no source address | NOT_CHECKED | MISSING_SOURCE_IP |
+| 4 | Address was already used by the owner | IGNORED | SOURCE_ALREADY_SEEN |
+| 5 | Otherwise | ALERT | KEY_USED_FROM_NEW_SOURCE |
 
 If nothing is signed with the key but the owner has an event in the window whose key ID is empty,
 the result is NOT_CHECKED / MISSING_KEY_ID on that event. A key never used in the log gets no row.

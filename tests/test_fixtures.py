@@ -12,12 +12,12 @@ REASONS = {
     "check1": {"KEY_FOR_OTHER_ACCOUNT", "SELF_KEY", "SELF_KEY_IMPLICIT",
                "ALLOW_LISTED_ROLE", "FAILED_CALL", "TARGET_UNKNOWN"},
     "check2": {"KEY_USED_FROM_NEW_SOURCE", "SOURCE_ALREADY_SEEN", "OUTSIDE_WINDOW",
-               "MISSING_KEY_ID", "BASELINE_TOO_SMALL"},
+               "MISSING_KEY_ID", "BASELINE_TOO_SMALL", "MISSING_SOURCE_IP"},
     "check3": {"GRANT_THEN_CREDENTIAL"},
 }
 VERDICT_REASON_RULES = {"ALERT": {"KEY_FOR_OTHER_ACCOUNT", "KEY_USED_FROM_NEW_SOURCE",
                                    "GRANT_THEN_CREDENTIAL"},
-                        "NOT_CHECKED": {"MISSING_KEY_ID", "BASELINE_TOO_SMALL"}}
+                        "NOT_CHECKED": {"MISSING_KEY_ID", "BASELINE_TOO_SMALL", "MISSING_SOURCE_IP"}}
 DOC_NETS = [ipaddress.ip_network(n) for n in ("192.0.2.0/24", "198.51.100.0/24", "203.0.113.0/24")]
 CASES = case_dirs()
 IDS = [c.name for c in CASES]

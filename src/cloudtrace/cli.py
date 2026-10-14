@@ -28,7 +28,24 @@ def _parser() -> argparse.ArgumentParser:
                    help="skip the comparison with the single-event rule")
     a.add_argument("--fail-on", choices=SEVERITIES,
                    help="exit with code 1 if any finding is at this level or higher")
+    e = sub.add_parser("evaluate", help="run the synthetic evaluation and attacker-change tests")
+    e.add_argument("--out", default="results/eval", help="folder for RESULTS.md and results.json")
+    e.add_argument("--seeds", type=int, nargs="+", default=[1, 2, 3, 4, 5],
+                   help="random seeds for the generated logs (default: 1 2 3 4 5)")
+    e.add_argument("--variants", type=int, default=20,
+                   help="random variants per attacker-change test (default: 20)")
     return p
+
+
+def _run_evaluate(args) -> int:
+    from cloudtrace.evaluation import run
+    try:
+        run.run_all(args.out, seeds=tuple(args.seeds), variants=args.variants)
+    except OSError as err:
+        print(f"cloudtrace: cannot write results: {err}", file=sys.stderr)
+        return 2
+    print(f"Evaluation written to {args.out} (RESULTS.md and results.json)")
+    return 0
 
 
 def _run_analyze(args) -> int:
@@ -67,6 +84,8 @@ def _run_analyze(args) -> int:
 
 def main(argv=None) -> int:
     args = _parser().parse_args(argv)
+    if args.command == "evaluate":
+        return _run_evaluate(args)
     return _run_analyze(args) if args.command == "analyze" else 2
 
 

@@ -1,0 +1,1655 @@
+{
+  "t2": {
+    "seeds": 5,
+    "ct": {
+      "tp_in_scope": 120,
+      "n_in_scope": 120,
+      "tp_out_of_scope": 0,
+      "n_out_of_scope": 40,
+      "fp_scenarios": 50,
+      "n_benign": 270,
+      "alert_events": 210,
+      "raw_alerts": 210,
+      "false_alarm_events": 50,
+      "normal_events": 3794,
+      "by_kind": {
+        "attack_cross_creator_ip": [
+          40,
+          40
+        ],
+        "benign_handover_usual_ip": [
+          0,
+          60
+        ],
+        "attack_self_key": [
+          0,
+          40
+        ],
+        "attack_cross_new_ip": [
+          40,
+          40
+        ],
+        "benign_onboarding": [
+          20,
+          20
+        ],
+        "benign_handover_new_ip": [
+          30,
+          30
+        ],
+        "attack_grant_key": [
+          40,
+          40
+        ],
+        "benign_self_rotation": [
+          0,
+          60
+        ],
+        "benign_automation": [
+          0,
+          40
+        ],
+        "benign_unused_key": [
+          0,
+          40
+        ],
+        "benign_failed": [
+          0,
+          20
+        ]
+      },
+      "precision": 0.706,
+      "recall_in_scope": 1.0,
+      "recall_out_of_scope": 0.0,
+      "false_alarms_per_1000_normal_events": 13.18,
+      "recall_in_scope_range": [
+        1.0,
+        1.0
+      ],
+      "false_alarms_per_1000_range": [
+        12.92,
+        13.5
+      ]
+    },
+    "ct_any": {
+      "tp_in_scope": 120,
+      "n_in_scope": 120,
+      "tp_out_of_scope": 0,
+      "n_out_of_scope": 40,
+      "fp_scenarios": 150,
+      "n_benign": 270,
+      "alert_events": 420,
+      "raw_alerts": 480,
+      "false_alarm_events": 180,
+      "normal_events": 3794,
+      "by_kind": {
+        "attack_cross_creator_ip": [
+          40,
+          40
+        ],
+        "benign_handover_usual_ip": [
+          60,
+          60
+        ],
+        "attack_self_key": [
+          0,
+          40
+        ],
+        "attack_cross_new_ip": [
+          40,
+          40
+        ],
+        "benign_onboarding": [
+          20,
+          20
+        ],
+        "benign_handover_new_ip": [
+          30,
+          30
+        ],
+        "attack_grant_key": [
+          40,
+          40
+        ],
+        "benign_self_rotation": [
+          0,
+          60
+        ],
+        "benign_automation": [
+          0,
+          40
+        ],
+        "benign_unused_key": [
+          40,
+          40
+        ],
+        "benign_failed": [
+          0,
+          20
+        ]
+      },
+      "precision": 0.444,
+      "recall_in_scope": 1.0,
+      "recall_out_of_scope": 0.0,
+      "false_alarms_per_1000_normal_events": 47.44,
+      "recall_in_scope_range": [
+        1.0,
+        1.0
+      ],
+      "false_alarms_per_1000_range": [
+        46.51,
+        48.58
+      ]
+    },
+    "b1": {
+      "tp_in_scope": 120,
+      "n_in_scope": 120,
+      "tp_out_of_scope": 0,
+      "n_out_of_scope": 40,
+      "fp_scenarios": 210,
+      "n_benign": 270,
+      "alert_events": 330,
+      "raw_alerts": 330,
+      "false_alarm_events": 210,
+      "normal_events": 3794,
+      "by_kind": {
+        "attack_cross_creator_ip": [
+          40,
+          40
+        ],
+        "benign_handover_usual_ip": [
+          60,
+          60
+        ],
+        "attack_self_key": [
+          0,
+          40
+        ],
+        "attack_cross_new_ip": [
+          40,
+          40
+        ],
+        "benign_onboarding": [
+          20,
+          20
+        ],
+        "benign_handover_new_ip": [
+          30,
+          30
+        ],
+        "attack_grant_key": [
+          40,
+          40
+        ],
+        "benign_self_rotation": [
+          0,
+          60
+        ],
+        "benign_automation": [
+          40,
+          40
+        ],
+        "benign_unused_key": [
+          40,
+          40
+        ],
+        "benign_failed": [
+          20,
+          20
+        ]
+      },
+      "precision": 0.364,
+      "recall_in_scope": 1.0,
+      "recall_out_of_scope": 0.0,
+      "false_alarms_per_1000_normal_events": 55.35,
+      "recall_in_scope_range": [
+        1.0,
+        1.0
+      ],
+      "false_alarms_per_1000_range": [
+        54.26,
+        56.68
+      ]
+    },
+    "b2": {
+      "tp_in_scope": 120,
+      "n_in_scope": 120,
+      "tp_out_of_scope": 0,
+      "n_out_of_scope": 40,
+      "fp_scenarios": 190,
+      "n_benign": 270,
+      "alert_events": 310,
+      "raw_alerts": 310,
+      "false_alarm_events": 190,
+      "normal_events": 3794,
+      "by_kind": {
+        "attack_cross_creator_ip": [
+          40,
+          40
+        ],
+        "benign_handover_usual_ip": [
+          60,
+          60
+        ],
+        "attack_self_key": [
+          0,
+          40
+        ],
+        "attack_cross_new_ip": [
+          40,
+          40
+        ],
+        "benign_onboarding": [
+          20,
+          20
+        ],
+        "benign_handover_new_ip": [
+          30,
+          30
+        ],
+        "attack_grant_key": [
+          40,
+          40
+        ],
+        "benign_self_rotation": [
+          0,
+          60
+        ],
+        "benign_automation": [
+          40,
+          40
+        ],
+        "benign_unused_key": [
+          40,
+          40
+        ],
+        "benign_failed": [
+          0,
+          20
+        ]
+      },
+      "precision": 0.387,
+      "recall_in_scope": 1.0,
+      "recall_out_of_scope": 0.0,
+      "false_alarms_per_1000_normal_events": 50.08,
+      "recall_in_scope_range": [
+        1.0,
+        1.0
+      ],
+      "false_alarms_per_1000_range": [
+        49.1,
+        51.28
+      ]
+    },
+    "b2x": {
+      "tp_in_scope": 120,
+      "n_in_scope": 120,
+      "tp_out_of_scope": 0,
+      "n_out_of_scope": 40,
+      "fp_scenarios": 150,
+      "n_benign": 270,
+      "alert_events": 270,
+      "raw_alerts": 270,
+      "false_alarm_events": 150,
+      "normal_events": 3794,
+      "by_kind": {
+        "attack_cross_creator_ip": [
+          40,
+          40
+        ],
+        "benign_handover_usual_ip": [
+          60,
+          60
+        ],
+        "attack_self_key": [
+          0,
+          40
+        ],
+        "attack_cross_new_ip": [
+          40,
+          40
+        ],
+        "benign_onboarding": [
+          20,
+          20
+        ],
+        "benign_handover_new_ip": [
+          30,
+          30
+        ],
+        "attack_grant_key": [
+          40,
+          40
+        ],
+        "benign_self_rotation": [
+          0,
+          60
+        ],
+        "benign_automation": [
+          0,
+          40
+        ],
+        "benign_unused_key": [
+          40,
+          40
+        ],
+        "benign_failed": [
+          0,
+          20
+        ]
+      },
+      "precision": 0.444,
+      "recall_in_scope": 1.0,
+      "recall_out_of_scope": 0.0,
+      "false_alarms_per_1000_normal_events": 39.54,
+      "recall_in_scope_range": [
+        1.0,
+        1.0
+      ],
+      "false_alarms_per_1000_range": [
+        38.76,
+        40.49
+      ]
+    },
+    "b3": {
+      "tp_in_scope": 0,
+      "n_in_scope": 120,
+      "tp_out_of_scope": 40,
+      "n_out_of_scope": 40,
+      "fp_scenarios": 60,
+      "n_benign": 270,
+      "alert_events": 100,
+      "raw_alerts": 100,
+      "false_alarm_events": 60,
+      "normal_events": 3794,
+      "by_kind": {
+        "attack_cross_creator_ip": [
+          0,
+          40
+        ],
+        "benign_handover_usual_ip": [
+          0,
+          60
+        ],
+        "attack_self_key": [
+          40,
+          40
+        ],
+        "attack_cross_new_ip": [
+          0,
+          40
+        ],
+        "benign_onboarding": [
+          0,
+          20
+        ],
+        "benign_handover_new_ip": [
+          0,
+          30
+        ],
+        "attack_grant_key": [
+          0,
+          40
+        ],
+        "benign_self_rotation": [
+          60,
+          60
+        ],
+        "benign_automation": [
+          0,
+          40
+        ],
+        "benign_unused_key": [
+          0,
+          40
+        ],
+        "benign_failed": [
+          0,
+          20
+        ]
+      },
+      "precision": 0.4,
+      "recall_in_scope": 0.0,
+      "recall_out_of_scope": 1.0,
+      "false_alarms_per_1000_normal_events": 15.81,
+      "recall_in_scope_range": [
+        0.0,
+        0.0
+      ],
+      "false_alarms_per_1000_range": [
+        15.5,
+        16.19
+      ]
+    },
+    "extras": {
+      "ct_in_scope_attacks_not_checked": 0,
+      "b1_alerts_on_normal_events": 210,
+      "of_those_ct_gave_a_reason": 60
+    },
+    "seed_list": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "t4": {
+    "M0|attack_cross_new_ip": {
+      "mutation": "M0",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M0|attack_cross_creator_ip": {
+      "mutation": "M0",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M0|attack_grant_key": {
+      "mutation": "M0",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 2.0,
+        "ct_any": 3.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M0|attack_self_key": {
+      "mutation": "M0",
+      "kind": "attack_self_key",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 0,
+        "b1": 0,
+        "b2": 0,
+        "b2x": 0,
+        "b3": 20
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 0.0,
+        "b1": 0.0,
+        "b2": 0.0,
+        "b2x": 0.0,
+        "b3": 1.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": false,
+        "b1": false,
+        "b2": false,
+        "b2x": false,
+        "b3": true
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M1|attack_cross_new_ip": {
+      "mutation": "M1",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 0,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 0.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": false,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M1|attack_cross_creator_ip": {
+      "mutation": "M1",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 0,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 0.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": false,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M1|attack_grant_key": {
+      "mutation": "M1",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 0,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 2.0,
+        "ct_any": 3.0,
+        "b1": 0.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": false,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M2|attack_cross_new_ip": {
+      "mutation": "M2",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M2|attack_cross_creator_ip": {
+      "mutation": "M2",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M2|attack_grant_key": {
+      "mutation": "M2",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M2|attack_self_key": {
+      "mutation": "M2",
+      "kind": "attack_self_key",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 0,
+        "b1": 0,
+        "b2": 0,
+        "b2x": 0,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 0.0,
+        "b1": 0.0,
+        "b2": 0.0,
+        "b2x": 0.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": false,
+        "b1": false,
+        "b2": false,
+        "b2x": false,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M3|attack_grant_key": {
+      "mutation": "M3",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M4|attack_cross_new_ip": {
+      "mutation": "M4",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M4|attack_cross_creator_ip": {
+      "mutation": "M4",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M4|attack_grant_key": {
+      "mutation": "M4",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 2.0,
+        "ct_any": 3.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M4|attack_self_key": {
+      "mutation": "M4",
+      "kind": "attack_self_key",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 0,
+        "b1": 0,
+        "b2": 0,
+        "b2x": 0,
+        "b3": 20
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 0.0,
+        "b1": 0.0,
+        "b2": 0.0,
+        "b2x": 0.0,
+        "b3": 1.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": false,
+        "b1": false,
+        "b2": false,
+        "b2x": false,
+        "b3": true
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M5|attack_cross_new_ip": {
+      "mutation": "M5",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 2.0,
+        "b2": 2.0,
+        "b2x": 2.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M5|attack_cross_creator_ip": {
+      "mutation": "M5",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 2.0,
+        "b2": 2.0,
+        "b2x": 2.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M5|attack_grant_key": {
+      "mutation": "M5",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 2.0,
+        "ct_any": 3.0,
+        "b1": 2.0,
+        "b2": 2.0,
+        "b2x": 2.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M5|attack_self_key": {
+      "mutation": "M5",
+      "kind": "attack_self_key",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 0,
+        "b1": 0,
+        "b2": 0,
+        "b2x": 0,
+        "b3": 20
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 0.0,
+        "b1": 0.0,
+        "b2": 0.0,
+        "b2x": 0.0,
+        "b3": 1.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": false,
+        "b1": false,
+        "b2": false,
+        "b2x": false,
+        "b3": true
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M6|attack_cross_new_ip": {
+      "mutation": "M6",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 20,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M6|attack_cross_creator_ip": {
+      "mutation": "M6",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 20,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M6|attack_grant_key": {
+      "mutation": "M6",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M7|attack_cross_new_ip": {
+      "mutation": "M7",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M7|attack_cross_creator_ip": {
+      "mutation": "M7",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M7|attack_grant_key": {
+      "mutation": "M7",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M8|attack_cross_new_ip": {
+      "mutation": "M8",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M8|attack_cross_creator_ip": {
+      "mutation": "M8",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 1.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M8|attack_grant_key": {
+      "mutation": "M8",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 20,
+        "ct_any": 20,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 20,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 1.0,
+        "ct_any": 2.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 1.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M9|attack_cross_new_ip": {
+      "mutation": "M9",
+      "kind": "attack_cross_new_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 0,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 0,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 0.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 0.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": false,
+        "b1": true,
+        "b2": true,
+        "b2x": false,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M9|attack_cross_creator_ip": {
+      "mutation": "M9",
+      "kind": "attack_cross_creator_ip",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 0,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 0,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 0.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 0.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": false,
+        "b1": true,
+        "b2": true,
+        "b2x": false,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    },
+    "M9|attack_grant_key": {
+      "mutation": "M9",
+      "kind": "attack_grant_key",
+      "variants": 20,
+      "caught": {
+        "ct": 0,
+        "ct_any": 0,
+        "b1": 20,
+        "b2": 20,
+        "b2x": 0,
+        "b3": 0
+      },
+      "alerts_per_variant": {
+        "ct": 0.0,
+        "ct_any": 0.0,
+        "b1": 1.0,
+        "b2": 1.0,
+        "b2x": 0.0,
+        "b3": 0.0
+      },
+      "ct_not_checked_when_missed": 0,
+      "predicted": {
+        "ct": false,
+        "ct_any": false,
+        "b1": true,
+        "b2": true,
+        "b2x": false,
+        "b3": false
+      },
+      "matches_prediction": {
+        "ct": true,
+        "ct_any": true,
+        "b1": true,
+        "b2": true,
+        "b2x": true,
+        "b3": true
+      }
+    }
+  }
+}
