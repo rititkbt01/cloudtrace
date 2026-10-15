@@ -120,7 +120,8 @@ def build(kind: str, log: Log, rng: random.Random, alloc: Allocator, t0: datetim
     """Add one scenario to `log` and return its ground truth.
 
     `opts` carries the attacker-change settings (see mutations.py): target_in_creator_name,
-    use_delay, key_gap, known_first, poison_baseline, via_role, drop_use_source.
+    use_delay, key_gap, known_first, poison_baseline, via_role, drop_use_source (every event
+    signed with the new key lacks an address).
     """
     opts = opts or {}
     attack = kind in ATTACK_KINDS
@@ -204,10 +205,10 @@ def build(kind: str, log: Log, rng: random.Random, alloc: Allocator, t0: datetim
             if opts.get("known_first"):  # M7: first use from the owner's usual address
                 chain.append(use(when + _minutes(1), owner["ip"]))
                 at = when + _minutes(rng.randint(5, 20))
-            chain.append(use(at, use_ip, ua=UA_OTHER if attack else UA_CLI,
-                             drop=bool(opts.get("drop_use_source"))))
+            drop = bool(opts.get("drop_use_source"))  # M6: no address on any use of the key
+            chain.append(use(at, use_ip, ua=UA_OTHER if attack else UA_CLI, drop=drop))
             for extra in range(rng.randint(0, 2)):  # a few more uses from the same address
-                chain.append(use(at + _minutes(3 * (extra + 1)), use_ip))
+                chain.append(use(at + _minutes(3 * (extra + 1)), use_ip, drop=drop))
     sc.event_ids = chain
 
     # The owner carries on with their old key as usual (new users have no old key).

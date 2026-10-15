@@ -10,3 +10,4 @@ data/public/*
 build/
 dist/
 *.egg-info/
+data/public/

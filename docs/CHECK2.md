@@ -1,6 +1,6 @@
-# Check 2: new key first used from a new address
+# Check 2: new key used from a new address
 
-**Question:** was a key that someone else created first used from an address its owner never used before?
+**Question:** was a key that someone else created used, soon after, from an address its owner never used before?
 **Why it matters:** a stolen or planted key is often first used from the attacker's own address.
 (MITRE ATT&CK T1098.001, "Additional Cloud Credentials". This is a clue, not proof.)
 
@@ -14,14 +14,16 @@ and which later events were signed with it.
 - **Usual address:** source addresses of the owner's events **before** the key was created, in this
   log only. Judged by address only; the tool name (user agent) is kept as evidence.
 - **Enough history:** the owner needs at least `baseline_min_events` earlier events (default 3).
-- Only the **first** event signed with the key is judged.
+- Version 2 (Stage 7): every **distinct address** that uses the key inside the window is judged once, at its first use there.
+  Version 1 judged only the very first use, so an attacker could use the key once from the owner's usual address and
+  then switch (attacker-change test M7). Version 1 results are kept in `results/eval/RESULTS_run1_first_use_only.md`.
 
 ## Decision order (first match wins)
 | # | Condition | Verdict | Reason |
 |---|---|---|---|
-| 1 | First use is later than the window | IGNORED | OUTSIDE_WINDOW |
+| 1 | No use inside the window (the first use is later) | IGNORED | OUTSIDE_WINDOW |
 | 2 | Owner has too few earlier events | NOT_CHECKED | BASELINE_TOO_SMALL |
-| 3 | The first-use event has no source address | NOT_CHECKED | MISSING_SOURCE_IP |
+| 3 | Then, for each address used inside the window: the event has no source address | NOT_CHECKED | MISSING_SOURCE_IP |
 | 4 | Address was already used by the owner | IGNORED | SOURCE_ALREADY_SEEN |
 | 5 | Otherwise | ALERT | KEY_USED_FROM_NEW_SOURCE |
 
@@ -30,7 +32,7 @@ the result is NOT_CHECKED / MISSING_KEY_ID on that event. A key never used in th
 
 ## Points (frozen weights, see `scoring.py`)
 cross_identity 1 (always) + first_use_in_window 2 + new_source 2, plus creator_source 3 when the key is
-first used from the same address that created it. C01 = 8 (high), C06 = 5 (high).
+used from the same address that created it. C01 = 8 (high), C06 = 5 (high).
 
 ## Known false positives
 Owner travels or changes network; a new office or VPN; short logs (everything looks new, hence the
@@ -38,7 +40,8 @@ minimum history rule).
 
 ## Known evasions and limits
 - Waiting longer than the window (case C07). The evasion tests measure this.
-- Using the key first from an address the owner already uses, then switching later (only the first use is judged).
+- An address the attacker planted in the owner's earlier history (M8) counts as "usual".
+- A new address is judged once; later uses from the same address are not judged again.
 - Events with an empty key ID cannot be linked (NOT_CHECKED, never guessed).
 - Failed calls by the owner before the key was created still count as "seen" addresses.
 - Console logins (no key ID) in the window can show as MISSING_KEY_ID when the key is otherwise unused.

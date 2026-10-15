@@ -14,7 +14,7 @@ Same seeds give identical results. A test fails if the committed results are out
 |---|---|---|---|
 | T1 | 11 hand-made cases (`data/fixtures`) | Written by hand before the code | Done (Stage 1) |
 | T2 | Seeded generated logs: normal noise plus injected attacks | The generator (what each scenario was built to be) | Done (Stage 6) |
-| T3 | Public log (Stratus Red Team CloudTrail data) | Technique names in the dataset | Stage 7 |
+| T3 | Public log (Stratus Red Team CloudTrail data, Invictus-IR Sigma-AWS, MIT licence) | Stratus technique pages | Done (Stage 7); see PUBLIC_DATA.md |
 | T4 | Attacker-change tests (mutations M1-M9) | Known by construction | Done (Stage 6) |
 
 ## What is judged
@@ -66,19 +66,25 @@ Same attack, changed to dodge detection. Ground truth stays "attack" by construc
 | M3 | Key created after the grant window (attack_grant_key only) |
 | M4 | Records in random order |
 | M5 | Every record duplicated |
-| M6 | First-use event has no address or tool name |
-| M7 | First use once from the owner's usual address, then from the attacker's |
+| M6 | Every event signed with the key has no address or tool name |
+| M7 | Key used once from the owner's usual address, then from the attacker's |
 | M8 | Attacker's address added to the owner's earlier history |
 | M9 | Key made through an approved automation role |
 
 ### Predictions written before the first run
 - Control: CloudTrace, B1 and both B2 variants catch cross-identity attacks; B3 does not; for self-made keys only B3 does.
 - M1: only B1 is fooled. M4 and M5: no detector changes its catch (B1/B2 raise duplicate alerts on M5).
-- M2, M6, M7, M8: CloudTrace's Check 2 is evaded; Check 1 still gives a low note ("any finding" still catches);
+- M2, M6, M7, M8: CloudTrace's Check 2 is evaded (M7: see the revision below); Check 1 still gives a low note ("any finding" still catches);
   attack_grant_key is still caught at medium+ because Check 3 does not depend on Check 2. B1/B2 still alert (they do not look at use).
 - M3: attack_grant_key is still caught through Check 2.
 - M9: CloudTrace and "B2 + approved roles excluded" miss it (they trust the role); B1 and plain B2 still alert.
 - Self-made key: only B3 catches it, and only if used within an hour (M2 evades it).
+
+### Revised prediction for M7 (Stage 7)
+Run 1 confirmed the prediction above: Check 2 judged only the first use of a key, so M7 evaded it (0/20, kept in
+`results/eval/RESULTS_run1_first_use_only.md`). In Stage 7 Check 2 was changed (version 2, see CHECK2.md): every distinct
+address that uses the key inside the window is judged once. The M7 prediction was then changed to "caught like the control"
+and run again. This is a fix made after seeing a measured weakness, so it is stated here; the old result stays in the repository.
 The tool prints every cell where the result differs from these predictions.
 
 ## What the first full run shows (see RESULTS.md for the numbers)
@@ -86,14 +92,19 @@ The tool prints every cell where the result differs from these predictions.
   the design good.
 - On T2, all three cross-identity detectors catch every in-scope attack. The difference is in false alarms:
   CloudTrace (medium+) flags far fewer normal scenarios than B1 or B2, and records a reason for those it ignores.
-- Where CloudTrace is weaker: patient attackers (M2), a first use from a known address (M7), a poisoned history (M8),
-  and approved-role abuse (M9). These are reported, not hidden.
+- Where CloudTrace was weaker in run 1: patient attackers (M2), a first use from a known address (M7), a poisoned history (M8),
+  and approved-role abuse (M9). Check 2 version 2 closed M7. M2, M8 and M9 remain, and are reported, not hidden.
+- With version 2, T2 numbers did not change (the generated normal stories never use one key from several addresses),
+  so the cost of version 2 in false alarms is **not measured** here.
 - M6 shows the "do not guess" rule: with the first-use address missing, Check 2 says NOT_CHECKED rather than alerting or staying silent.
 
 ## Limits (state these in the report)
 - **Circularity.** The attacks are written by us to resemble what the checks look for, so 100% recall on T2 shows the
-  code works as designed, not that it finds real attacks. T3 (public data) and T4 reduce this; they do not remove it.
+  code works as designed, not that it finds real attacks. T3 (public data) and T4 reduce this; they do not remove it. T3 has only two labelled key creations.
 - Synthetic data cannot prove real-world performance.
 - Baselines are our re-implementations of published logic, not the vendors' products.
-- Only first use is judged by Check 2. Evaluating every use in the window would catch M7; that is a possible Stage 7 decision
-  made on these numbers, and any change is re-run through the same tests.
+- Check 2 version 2 judges each new address once (at its first use inside the window). It cannot see a planted address (M8),
+  a use after the window (M2) or an approved role (M9).
+
+## T3: public log
+Run `cloudtrace evaluate-public data/public/Sigma-AWS/CloudTrail` (see PUBLIC_DATA.md). The result file lists totals only.

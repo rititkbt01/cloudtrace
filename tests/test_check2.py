@@ -76,9 +76,35 @@ def test_owner_name_match_ignores_case():
     assert check2(records)[0]["reason"] == "SOURCE_ALREADY_SEEN"
 
 
-def test_only_the_first_use_is_judged():
-    records = base_log() + [use(12, 45, "svc-b", ADMIN_IP)]
-    assert len(check2(records)) == 1
+def test_each_new_address_in_the_window_is_judged_once():
+    records = base_log() + [use(12, 45, "svc-b", ADMIN_IP), use(13, 46, "svc-b", ADMIN_IP),
+                            use(14, 47, "svc-b", NEW_IP)]
+    rows = check2(records)
+    assert [r["evidence"]["source_ip"] for r in rows] == [NEW_IP, ADMIN_IP]
+    assert [r["event_id"] for r in rows] == ["s-011", "s-012"]
+    assert "also used" in rows[1]["explanation"] and "first used" in rows[0]["explanation"]
+
+
+def test_known_address_first_then_new_address_is_still_caught():
+    """Attacker-change test M7: a harmless-looking first use must not hide the real one."""
+    records = log(baseline("svc-b", SVC_IP), create_key(10, 30, "admin-a", "svc-b", ADMIN_IP),
+                  use(11, 32, "svc-b", SVC_IP), use(12, 40, "svc-b", NEW_IP))
+    rows = check2(records)
+    assert [(r["verdict"], r["reason"]) for r in rows] == [
+        ("IGNORED", "SOURCE_ALREADY_SEEN"), ("ALERT", "KEY_USED_FROM_NEW_SOURCE")]
+
+
+def test_uses_after_the_window_are_ignored_when_an_earlier_use_is_in_the_window():
+    records = base_log(use_ip=SVC_IP) + [use(12, 200, "svc-b", NEW_IP)]  # 170 min after creation
+    assert [r["reason"] for r in check2(records)] == ["SOURCE_ALREADY_SEEN"]
+
+
+def test_no_address_on_any_use_gives_one_not_checked_row():
+    records = base_log() + [use(12, 45, "svc-b", NEW_IP)]
+    for r in records[-2:]:
+        del r["sourceIPAddress"]
+    rows = check2(records)
+    assert [(r["verdict"], r["reason"]) for r in rows] == [("NOT_CHECKED", "MISSING_SOURCE_IP")]
 
 
 def test_key_never_used_gives_no_row():

@@ -25,4 +25,5 @@ def run_all(records: list) -> dict:
         "b3": {"events": {r["event_id"] for r in b3}, "raw_alerts": len(b3)},
         "_rows": rows,
         "_quality": result["quality"],
+        "_history": result["key_history"],
     }

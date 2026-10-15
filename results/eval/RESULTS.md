@@ -46,8 +46,8 @@ Each cell: variants caught out of 20. (!) means the measured result differs from
 | M2 key first used after the window | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M4 records in random order | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M5 every record duplicated | 20/20 (1.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 0/20 | 0 |
-| M6 first use has no address/tool | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 20 |
-| M7 first use from owner's usual address | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
+| M6 key events have no address/tool | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 20 |
+| M7 first use from owner's usual address | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M8 attacker address added to owner's history | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M9 key made via approved role | 0/20 | 0/20 | 20/20 | 20/20 | 0/20 | 0/20 | 0 |
 
@@ -60,8 +60,8 @@ Each cell: variants caught out of 20. (!) means the measured result differs from
 | M2 key first used after the window | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M4 records in random order | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M5 every record duplicated | 20/20 (1.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 0/20 | 0 |
-| M6 first use has no address/tool | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 20 |
-| M7 first use from owner's usual address | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
+| M6 key events have no address/tool | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 20 |
+| M7 first use from owner's usual address | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M8 attacker address added to owner's history | 0/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M9 key made via approved role | 0/20 | 0/20 | 20/20 | 20/20 | 0/20 | 0/20 | 0 |
 
@@ -75,7 +75,7 @@ Each cell: variants caught out of 20. (!) means the measured result differs from
 | M3 key created after the grant window | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M4 records in random order | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M5 every record duplicated | 20/20 (2.0 alerts each) | 20/20 (3.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 20/20 (2.0 alerts each) | 0/20 | 0 |
-| M6 first use has no address/tool | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
+| M6 key events have no address/tool | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M7 first use from owner's usual address | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M8 attacker address added to owner's history | 20/20 | 20/20 | 20/20 | 20/20 | 20/20 | 0/20 | 0 |
 | M9 key made via approved role | 0/20 | 0/20 | 20/20 | 20/20 | 0/20 | 0/20 | 0 |
@@ -99,4 +99,4 @@ None: every measured cell matched the prediction written beforehand.
 - B1, B2 and B3 are re-implementations of the published rule logic, replayed on a whole file. Live scheduling details (look-back time, alert caps) are not modelled.
 - B3 is built for self-made keys, so it is expected to miss cross-identity attacks; CloudTrace is expected to miss self-made-key attacks (outside its stated scope).
 - 'CloudTrace (medium+)' counts only findings of score 3 or more; a Check 1 note alone (score 1) is shown in the 'any finding' row.
-- Attacks here are built to resemble the patterns the checks look for, so high recall on them proves the code works as designed, not that it finds real attacks. Real-log testing (T3) comes in Stage 7.
+- Attacks here are built to resemble the patterns the checks look for, so high recall on them proves the code works as designed, not that it finds real attacks. Real-log testing (T3) is reported separately in results/public/RESULTS_T3.md.

@@ -67,10 +67,10 @@
         "key_created_event_id": "c06-004",
         "key_created_at": "2026-01-01T10:00:00Z",
         "key_made_for": "svc-b",
+        "creator_ip": "203.0.113.10",
         "minutes_after_creation": 10.0,
         "source_ip": "192.0.2.50",
         "user_agent": "curl/8.5.0",
-        "creator_ip": "203.0.113.10",
         "known_sources": [
           "198.51.100.25"
         ],

@@ -34,7 +34,26 @@ def _parser() -> argparse.ArgumentParser:
                    help="random seeds for the generated logs (default: 1 2 3 4 5)")
     e.add_argument("--variants", type=int, default=20,
                    help="random variants per attacker-change test (default: 20)")
+    q = sub.add_parser("evaluate-public",
+                       help="score a public log kept outside the repository (totals only)")
+    q.add_argument("input", help="folder or file with the public CloudTrail log")
+    q.add_argument("--out", default="results/public", help="folder for RESULTS_T3.md")
     return p
+
+
+def _run_evaluate_public(args) -> int:
+    from cloudtrace.evaluation import public
+    try:
+        t3 = public.run(args.input, args.out)
+    except IngestError as err:
+        print(f"cloudtrace: {err}", file=sys.stderr)
+        return 2
+    except OSError as err:
+        print(f"cloudtrace: cannot write results: {err}", file=sys.stderr)
+        return 2
+    print(f"Public-log result written to {args.out}/RESULTS_T3.md "
+          f"({t3['records']} records, {t3['labelled_attacks']} labelled attacks)")
+    return 0
 
 
 def _run_evaluate(args) -> int:
@@ -86,6 +105,8 @@ def main(argv=None) -> int:
     args = _parser().parse_args(argv)
     if args.command == "evaluate":
         return _run_evaluate(args)
+    if args.command == "evaluate-public":
+        return _run_evaluate_public(args)
     return _run_analyze(args) if args.command == "analyze" else 2
 
 

@@ -2,7 +2,7 @@
 
   T2: seeded synthetic logs (several seeds, results added up)
   T4: attacker-change tests: every attack kind x every mutation, many random variants each
-(T3, a public log, is added in Stage 7.)
+(T3, a public log, is scored separately by public.py.)
 """
 import json
 import random
@@ -87,7 +87,7 @@ HONEST = [
      "(score 1) is shown in the 'any finding' row."),
     ("- Attacks here are built to resemble the patterns the checks look for, so high recall on "
      "them proves the code works as designed, not that it finds real attacks. Real-log testing "
-     "(T3) comes in Stage 7."),
+     "(T3) is reported separately in results/public/RESULTS_T3.md."),
 ]
 
 

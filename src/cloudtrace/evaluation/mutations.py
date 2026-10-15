@@ -9,13 +9,15 @@ CONSTRUCTION. We then measure which detectors still catch it.
   M3  delay_key          the key is created long after the rights grant (outside the window)
   M4  shuffle_order      records appear in random order in the file
   M5  duplicate_records  every record appears twice
-  M6  drop_source        the first-use event has no source address or tool name
+  M6  drop_source        every event signed with the new key has no source address or tool name
+                         (revised in Stage 7: the first version removed only the first event)
   M7  known_first        the key is first used once from the owner's usual address, then from the
-                         attacker's address
+                         attacker's address (CloudTrace evaded this until Check 2 version 2)
   M8  poison_baseline    the attacker's address is made to look "usual" for the owner beforehand
   M9  approved_role      the key is made through an approved automation role
 
-The PREDICTIONS table was written BEFORE the first run (see docs/EVALUATION.md). After a run,
+The PREDICTIONS table was written BEFORE the first run (see docs/EVALUATION.md); the one
+deliberate change since then (M7, after Check 2 version 2) is explained in the table itself. After a run,
 the tool reports every cell where the measured result differs from the prediction.
 """
 import copy
@@ -31,7 +33,7 @@ NAMES = {
     "M0": "control (no change)", "M1": "owner name inside creator name",
     "M2": "key first used after the window", "M3": "key created after the grant window",
     "M4": "records in random order", "M5": "every record duplicated",
-    "M6": "first use has no address/tool", "M7": "first use from owner's usual address",
+    "M6": "key events have no address/tool", "M7": "first use from owner's usual address",
     "M8": "attacker address added to owner's history", "M9": "key made via approved role",
 }
 
@@ -89,7 +91,9 @@ for kind in (A1, A2, A3):
     PREDICTIONS[("M4", kind)] = _CONTROL
     PREDICTIONS[("M5", kind)] = _CONTROL
     PREDICTIONS[("M6", kind)] = evaded
-    PREDICTIONS[("M7", kind)] = evaded
+    # Run 1 (Check 2 version 1, first use only) predicted and measured "evaded" for M7.
+    # After Check 2 version 2 (each new address judged) it is expected to be caught.
+    PREDICTIONS[("M7", kind)] = _CONTROL
     PREDICTIONS[("M8", kind)] = evaded
     PREDICTIONS[("M9", kind)] = _p(F, F, T, T, F, F)  # CloudTrace trusts approved roles
 PREDICTIONS[("M3", A3)] = _CONTROL  # Check 2 still fires on the new address

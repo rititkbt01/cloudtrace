@@ -1314,7 +1314,7 @@
       "kind": "attack_cross_new_ip",
       "variants": 20,
       "caught": {
-        "ct": 0,
+        "ct": 20,
         "ct_any": 20,
         "b1": 20,
         "b2": 20,
@@ -1322,8 +1322,8 @@
         "b3": 0
       },
       "alerts_per_variant": {
-        "ct": 0.0,
-        "ct_any": 1.0,
+        "ct": 1.0,
+        "ct_any": 2.0,
         "b1": 1.0,
         "b2": 1.0,
         "b2x": 1.0,
@@ -1331,7 +1331,7 @@
       },
       "ct_not_checked_when_missed": 0,
       "predicted": {
-        "ct": false,
+        "ct": true,
         "ct_any": true,
         "b1": true,
         "b2": true,
@@ -1352,7 +1352,7 @@
       "kind": "attack_cross_creator_ip",
       "variants": 20,
       "caught": {
-        "ct": 0,
+        "ct": 20,
         "ct_any": 20,
         "b1": 20,
         "b2": 20,
@@ -1360,8 +1360,8 @@
         "b3": 0
       },
       "alerts_per_variant": {
-        "ct": 0.0,
-        "ct_any": 1.0,
+        "ct": 1.0,
+        "ct_any": 2.0,
         "b1": 1.0,
         "b2": 1.0,
         "b2x": 1.0,
@@ -1369,7 +1369,7 @@
       },
       "ct_not_checked_when_missed": 0,
       "predicted": {
-        "ct": false,
+        "ct": true,
         "ct_any": true,
         "b1": true,
         "b2": true,
@@ -1398,8 +1398,8 @@
         "b3": 0
       },
       "alerts_per_variant": {
-        "ct": 1.0,
-        "ct_any": 2.0,
+        "ct": 2.0,
+        "ct_any": 3.0,
         "b1": 1.0,
         "b2": 1.0,
         "b2x": 1.0,
