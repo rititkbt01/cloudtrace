@@ -1,7 +1,7 @@
 # CloudTrace report
 
 - Input: `c06_attack_key_used_from_new_source/events.json`
-- Tool version: 0.1.0
+- Tool version: 1.0.0
 - Time range in log: 2026-01-01T09:10:00Z to 2026-01-01T10:10:00Z
 - Records read: 5; usable: 5 (100.0%)
 - Events judged by the checks: 2

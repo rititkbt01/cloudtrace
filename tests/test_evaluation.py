@@ -197,6 +197,32 @@ def test_committed_results_are_up_to_date():
         json.dumps({"t2": t2, "t4": t4}))
 
 
+def test_committed_sensitivity_is_up_to_date():
+    from cloudtrace.evaluation import sensitivity
+    text = (RESULTS / "SENSITIVITY.md").read_text(encoding="utf-8")
+    assert text == sensitivity.render(sensitivity.run_sensitivity())
+
+
+def test_sensitivity_defaults_match_shipped_settings():
+    from cloudtrace import config
+    from cloudtrace.evaluation import sensitivity
+    shipped = config.resolve(None)
+    assert {k: shipped[k] for k in sensitivity.DEFAULT} == sensitivity.DEFAULT
+
+
+def test_sensitivity_uses_the_same_seeds_as_the_main_run():
+    from cloudtrace.evaluation import sensitivity
+    assert tuple(sensitivity.SEEDS) == tuple(run.DEFAULT_SEEDS)
+
+
+def test_shorter_window_never_catches_more():
+    from cloudtrace.evaluation import generator, sensitivity
+    logs = [generator.generate(1)]
+    short = sensitivity._count(logs, {"window_minutes": 15, "baseline_min_events": 3})
+    full = sensitivity._count(logs, {"window_minutes": 60, "baseline_min_events": 3})
+    assert short["caught"] <= full["caught"]
+
+
 def test_cli_evaluate_writes_files(tmp_path, capsys):
     assert cli.main(["evaluate", "--out", str(tmp_path), "--seeds", "1", "--variants", "1"]) == 0
     assert (tmp_path / "RESULTS.md").read_text(encoding="utf-8").startswith("# CloudTrace")

@@ -1,7 +1,7 @@
 # CloudTrace report
 
 - Input: `c08_attack_admin_grant_then_key/events.json`
-- Tool version: 0.1.0
+- Tool version: 1.0.0
 - Time range in log: 2026-01-01T10:00:00Z to 2026-01-01T10:20:00Z
 - Records read: 2; usable: 2 (100.0%)
 - Events judged by the checks: 1

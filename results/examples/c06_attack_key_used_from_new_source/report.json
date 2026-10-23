@@ -1,6 +1,6 @@
 {
   "tool": "cloudtrace",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "input": "c06_attack_key_used_from_new_source/events.json",
   "settings": {
     "window_minutes": 60,

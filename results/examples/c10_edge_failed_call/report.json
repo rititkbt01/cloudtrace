@@ -1,6 +1,6 @@
 {
   "tool": "cloudtrace",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "input": "c10_edge_failed_call/events.json",
   "settings": {
     "window_minutes": 60,

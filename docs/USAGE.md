@@ -23,6 +23,12 @@ Prints a readable report. Useful options:
 
 The input can be a `.json` / `.json.gz` CloudTrail file or a folder of them.
 
+## Other commands
+| Command | What it does |
+|---|---|
+| `cloudtrace evaluate --out results/eval` | Generated test stories, attacker-change tests and the settings table (RESULTS.md, results.json, SENSITIVITY.md) |
+| `cloudtrace evaluate-public FOLDER --out results/public` | Scores a public log kept outside Git; writes totals only (see PUBLIC_DATA.md) |
+
 ## Exit codes
 `0` finished, `1` findings at or above `--fail-on`, `2` a problem with the input or settings
 (a plain message is printed, no traceback).
@@ -34,4 +40,4 @@ comparison with B1. The same input always gives the same report.
 
 ## Safety
 CloudTrace only reads the files you give it. It never connects to a cloud account and never
-changes the input. Use only synthetic or properly licensed public logs (see ETHICS.md).
+changes the input. Use only synthetic or properly licensed public logs (see ETHICS.md in the project folder).

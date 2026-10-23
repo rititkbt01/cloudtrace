@@ -1,6 +1,6 @@
 {
   "tool": "cloudtrace",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "input": "c08_attack_admin_grant_then_key/events.json",
   "settings": {
     "window_minutes": 60,
