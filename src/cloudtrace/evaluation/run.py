@@ -9,7 +9,15 @@ import random
 from pathlib import Path
 
 from cloudtrace import __version__
-from cloudtrace.evaluation import detectors, generator, metrics, mutations, scenarios, sensitivity
+from cloudtrace.evaluation import (
+    delay,
+    detectors,
+    generator,
+    metrics,
+    mutations,
+    scenarios,
+    sensitivity,
+)
 
 LABELS = {"ct": "CloudTrace (medium+)", "ct_any": "CloudTrace (any finding)", "b1": "B1 Sigma",
           "b2": "B2 Elastic cross-user", "b2x": "B2 + approved roles excluded",
@@ -169,4 +177,5 @@ def run_all(out_dir, seeds=DEFAULT_SEEDS, variants: int = VARIANTS) -> dict:
     (out / "RESULTS.md").write_text(render(t2, t4), encoding="utf-8")
     (out / "SENSITIVITY.md").write_text(sensitivity.render(sensitivity.run_sensitivity(seeds)),
                                         encoding="utf-8")
+    (out / "DELAY.md").write_text(delay.render(delay.run_delay(variants)), encoding="utf-8")
     return {"t2": t2, "t4": t4}

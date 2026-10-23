@@ -64,6 +64,7 @@ All numbers are in `results/`. Details and caveats are in [docs/EVALUATION.md](d
   owner's history, and by using an approved automation role.
 - **Public log (Stratus Red Team data, 2 attacks):** CloudTrace caught 1 of 2 at medium or above, and both when
   low notes are counted. The log has no normal key stories, so it is a spot check only.
+- **Delayed key use:** [results/eval/DELAY.md](results/eval/DELAY.md) shows that a key first used after the time window is not flagged, and how each window size changes that (a patient attacker is a known limit).
 - **Settings:** the 60-minute window and 3-event history were fixed in advance; [results/eval/SENSITIVITY.md](results/eval/SENSITIVITY.md) shows how results change with them.
 
 ## Limits (please read)

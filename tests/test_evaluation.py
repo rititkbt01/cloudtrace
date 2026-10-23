@@ -210,6 +210,20 @@ def test_sensitivity_defaults_match_shipped_settings():
     assert {k: shipped[k] for k in sensitivity.DEFAULT} == sensitivity.DEFAULT
 
 
+def test_committed_delay_table_is_up_to_date():
+    from cloudtrace.evaluation import delay
+    assert (RESULTS / "DELAY.md").read_text(encoding="utf-8") == delay.render(delay.run_delay())
+
+
+def test_delay_rule_is_first_use_inside_window():
+    from cloudtrace.evaluation import delay
+    d = delay.run_delay(variants=2)
+    for kind in (delay.ATTACK, delay.LOOKALIKE):
+        for dly, row in d[kind].items():
+            for window, flagged in row.items():
+                assert flagged == (2 if dly <= window else 0)
+
+
 def test_sensitivity_uses_the_same_seeds_as_the_main_run():
     from cloudtrace.evaluation import sensitivity
     assert tuple(sensitivity.SEEDS) == tuple(run.DEFAULT_SEEDS)

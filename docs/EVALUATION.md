@@ -106,5 +106,9 @@ The tool prints every cell where the result differs from these predictions.
 - Check 2 version 2 judges each new address once (at its first use inside the window). It cannot see a planted address (M8),
   a use after the window (M2) or an approved role (M9).
 
+## Delay and settings tables
+`cloudtrace evaluate` also writes `SENSITIVITY.md` (window and history settings, one at a time) and `DELAY.md` (how long after creation
+the key is first used, against the window). Both are generated logs and describe behaviour, not recommended values.
+
 ## T3: public log
 Run `cloudtrace evaluate-public data/public/Sigma-AWS/CloudTrail` (see PUBLIC_DATA.md). The result file lists totals only.
