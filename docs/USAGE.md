@@ -26,8 +26,20 @@ The input can be a `.json` / `.json.gz` CloudTrail file or a folder of them.
 ## Other commands
 | Command | What it does |
 |---|---|
-| `cloudtrace evaluate --out results/eval` | Generated test stories, attacker-change tests and the settings table (RESULTS.md, results.json, SENSITIVITY.md) |
+| `cloudtrace evaluate --out results/eval` | Generated test stories, attacker-change tests and the settings table and Check 2 cost table (RESULTS.md, results.json, SENSITIVITY.md, DELAY.md, CHECK2_COST.md) |
+| `cloudtrace tune LOG [--config FILE] [--out FILE.md]` | Settings guide for YOUR log: how long keys were first used after creation, and what each time window and history setting would change (read-only; counts and times only). See TUNING.md |
 | `cloudtrace evaluate-public FOLDER --out results/public` | Scores a public log kept outside Git; writes totals only (see PUBLIC_DATA.md) |
+
+## Fresh-environment check
+To prove the project works for a stranger, clone it into a NEW folder and run one script (needs the internet for pip):
+```
+git clone <your repository URL> cloudtrace_fresh
+cd cloudtrace_fresh
+python tools/fresh_check.py
+```
+It creates a new virtual environment in a temporary folder, installs the project from scratch, runs the tests and the
+style check, runs the main commands, and compares the regenerated result tables with the committed ones. It prints
+PASS or FAIL for each step and writes `fresh_check_result.txt` (operating system, Python version, date).
 
 ## Exit codes
 `0` finished, `1` findings at or above `--fail-on`, `2` a problem with the input or settings

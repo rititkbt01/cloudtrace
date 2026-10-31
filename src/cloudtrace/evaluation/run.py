@@ -10,6 +10,7 @@ from pathlib import Path
 
 from cloudtrace import __version__
 from cloudtrace.evaluation import (
+    check2_cost,
     delay,
     detectors,
     generator,
@@ -178,4 +179,6 @@ def run_all(out_dir, seeds=DEFAULT_SEEDS, variants: int = VARIANTS) -> dict:
     (out / "SENSITIVITY.md").write_text(sensitivity.render(sensitivity.run_sensitivity(seeds)),
                                         encoding="utf-8")
     (out / "DELAY.md").write_text(delay.render(delay.run_delay(variants)), encoding="utf-8")
+    (out / "CHECK2_COST.md").write_text(check2_cost.render(check2_cost.run_cost(seeds)),
+                                        encoding="utf-8")
     return {"t2": t2, "t4": t4}

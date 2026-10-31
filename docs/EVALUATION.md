@@ -94,8 +94,9 @@ The tool prints every cell where the result differs from these predictions.
   CloudTrace (medium+) flags far fewer normal scenarios than B1 or B2, and records a reason for those it ignores.
 - Where CloudTrace was weaker in run 1: patient attackers (M2), a first use from a known address (M7), a poisoned history (M8),
   and approved-role abuse (M9). Check 2 version 2 closed M7. M2, M8 and M9 remain, and are reported, not hidden.
-- With version 2, T2 numbers did not change (the generated normal stories never use one key from several addresses),
-  so the cost of version 2 in false alarms is **not measured** here.
+- With version 2, the main T2 numbers did not change (the generated normal stories never use one key from several addresses).
+  The false-alarm cost of version 2 is measured separately (Stage 11) in `results/eval/CHECK2_COST.md`: it catches the M7 attacker
+  (0/40 -> 40/40) and adds one false alarm for every normal story where the key is used from a second NEW address inside the window.
 - M6 shows the "do not guess" rule: with the first-use address missing, Check 2 says NOT_CHECKED rather than alerting or staying silent.
 
 ## Limits (state these in the report)
@@ -105,6 +106,12 @@ The tool prints every cell where the result differs from these predictions.
 - Baselines are our re-implementations of published logic, not the vendors' products.
 - Check 2 version 2 judges each new address once (at its first use inside the window). It cannot see a planted address (M8),
   a use after the window (M2) or an approved role (M9).
+
+## False-alarm cost of Check 2 version 2 (T5)
+`cloudtrace evaluate` also writes `CHECK2_COST.md`. It runs a frozen copy of Check 2 version 1 (`evaluation/check2_v1.py`) and
+version 2 on the same stories: attacks and normal stories where the key is used from one, two known, or a second new address.
+It then adds extra normal stories of the last kind to the main mix (0, 15, 30, 60) to show the scale. The share of such normal
+stories in real life is **not known**; the table shows what each one costs, not how many there are.
 
 ## Delay and settings tables
 `cloudtrace evaluate` also writes `SENSITIVITY.md` (window and history settings, one at a time) and `DELAY.md` (how long after creation

@@ -36,7 +36,9 @@ used from the same address that created it. C01 = 8 (high), C06 = 5 (high).
 
 ## Known false positives
 Owner travels or changes network; a new office or VPN; short logs (everything looks new, hence the
-minimum history rule).
+minimum history rule). Version 2 adds one more: a person who uses the key from their usual address and then from a second new
+address inside the window (phone, VPN) is flagged, because the attack in test M7 looks the same. Measured in
+`results/eval/CHECK2_COST.md`: one extra false alarm per such normal story.
 
 ## Known evasions and limits
 - Waiting longer than the window (case C07). The evasion tests measure this.

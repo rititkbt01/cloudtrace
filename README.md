@@ -2,7 +2,7 @@
 
 **CloudTrace reads cloud activity logs, finds risky changes to access keys, and explains every decision.**
 It is a small, free, read-only Python tool made for the CyberFox Society Cybersecurity R&D Internship
-(project area: Security Operations & Detection Engineering). Version 1.0.0.
+(project area: Security Operations & Detection Engineering). Version 1.1.0.
 
 ## The problem in plain words
 
@@ -65,6 +65,8 @@ All numbers are in `results/`. Details and caveats are in [docs/EVALUATION.md](d
 - **Public log (Stratus Red Team data, 2 attacks):** CloudTrace caught 1 of 2 at medium or above, and both when
   low notes are counted. The log has no normal key stories, so it is a spot check only.
 - **Delayed key use:** [results/eval/DELAY.md](results/eval/DELAY.md) shows that a key first used after the time window is not flagged, and how each window size changes that (a patient attacker is a known limit).
+- **Cost of the Check 2 change:** [results/eval/CHECK2_COST.md](results/eval/CHECK2_COST.md) measures what Check 2 version 2 gains (the attacker who first uses the key from the owner's usual address) and what it costs (one extra false alarm per normal story where the key is used from a second new address).
+- **Your own settings:** `cloudtrace tune LOG` shows what each time window and history setting would change on your own log ([docs/TUNING.md](docs/TUNING.md)).
 - **Settings:** the 60-minute window and 3-event history were fixed in advance; [results/eval/SENSITIVITY.md](results/eval/SENSITIVITY.md) shows how results change with them.
 
 ## Limits (please read)
