@@ -38,7 +38,29 @@ def _parser() -> argparse.ArgumentParser:
                        help="score a public log kept outside the repository (totals only)")
     q.add_argument("input", help="folder or file with the public CloudTrail log")
     q.add_argument("--out", default="results/public", help="folder for RESULTS_T3.md")
+    t = sub.add_parser("tune", help="show counts and timings for settings on a supplied log")
+    t.add_argument("input", help="a .json / .json.gz file, or a folder of them")
+    t.add_argument("--config", help="settings file (TOML)")
+    t.add_argument("--out", help="write the settings guide to this Markdown file")
     return p
+
+
+def _run_tune(args) -> int:
+    from cloudtrace import tuning
+    try:
+        cfg = settings.load(args.config) if args.config else settings.resolve(None)
+        text = tuning.render(tuning.analyze(load_records(args.input), cfg))
+        if args.out:
+            out = Path(args.out)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(text, encoding="utf-8")
+            print("Settings guide written.")
+        else:
+            sys.stdout.write(text)
+    except (IngestError, settings.ConfigError, OSError) as err:
+        print(f"cloudtrace: {err}", file=sys.stderr)
+        return 2
+    return 0
 
 
 def _run_evaluate_public(args) -> int:
@@ -107,6 +129,8 @@ def main(argv=None) -> int:
         return _run_evaluate(args)
     if args.command == "evaluate-public":
         return _run_evaluate_public(args)
+    if args.command == "tune":
+        return _run_tune(args)
     return _run_analyze(args) if args.command == "analyze" else 2
 
 

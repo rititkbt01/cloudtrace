@@ -1,6 +1,6 @@
 {
   "tool": "cloudtrace",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "input": "c06_attack_key_used_from_new_source/events.json",
   "settings": {
     "window_minutes": 60,
@@ -14,6 +14,14 @@
     "records_read": 5,
     "usable_events": 5,
     "coverage_percent": 100.0,
+    "input_usability_percent": 100.0,
+    "rule_decisions": 2,
+    "evaluated_rule_decisions": 2,
+    "rule_evaluability_percent": 100.0,
+    "successful_key_creations": 1,
+    "resolved_key_creations": 1,
+    "key_creation_resolution_percent": 100.0,
+    "lineage_break_decisions": 0,
     "candidate_events": 2,
     "alerts": {
       "high": 1,
@@ -31,6 +39,7 @@
     "reordered": false,
     "unusable": [],
     "missing_fields": {},
+    "invalid_fields": {},
     "time_start": "2026-01-01T09:10:00Z",
     "time_end": "2026-01-01T10:10:00Z"
   },
@@ -93,6 +102,8 @@
       "creator_arn": "arn:aws:iam::123456789012:user/admin-a",
       "creator_ip": "203.0.113.10",
       "target_user": "svc-b",
+      "account_id": "123456789012",
+      "partition": "aws",
       "uses": [
         {
           "event_id": "c06-005",

@@ -1,7 +1,7 @@
 """Settings for one analysis run, with safe defaults and simple validation."""
 
 DEFAULTS = {
-    # How long after a key is created we look for its first use (Check 2).
+    # Creation-based use window (Check 2) and prior-grant window (Check 3).
     "window_minutes": 60,
     # How many earlier events an identity needs before its "usual addresses" are trusted (Check 2).
     "baseline_min_events": 3,

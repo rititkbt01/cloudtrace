@@ -119,3 +119,17 @@ the key is first used, against the window). Both are generated logs and describe
 
 ## T3: public log
 Run `cloudtrace evaluate-public data/public/Sigma-AWS/CloudTrail` (see PUBLIC_DATA.md). The result file lists totals only.
+
+## Submission metric definitions and remaining limitations
+Precision is calculated at story level, using all detected labelled attacks including self-created
+key attacks where the detector covers them. The rate per 1,000 normal events counts distinct
+benign event IDs with findings, not flagged stories or raw finding rows. Thus CloudTrace any-finding
+has 150 flagged benign stories but 180 flagged benign events (180 / 3794 * 1000 = 47.44).
+B3 precision is 40 / (40 + 60) = 40%, including 40 self-created-key true positives, even though its
+cross-identity detection count is zero. Multiple checks can produce finding rows on one event.
+
+The five supplied seeds are the existing evaluation seeds; no untouched holdout split is claimed.
+The combined detector reduces noise in this synthetic mix. A complete controlled ablation study
+has not isolated the separate contribution of lineage. Manual analyst lookups saved and human
+investigation time have not been measured. Confidence intervals and per-rule F1 are not currently
+produced. These original brief commitments should be marked as unmeasured rather than complete.

@@ -30,9 +30,8 @@ from cloudtrace.rows import iso, make_row
 CHECK = "check2"
 
 
-def _is_owner(e: Event, owner: str) -> bool:
-    me = lineage.caller_user_name(e)
-    return bool(me) and lineage.same_user(me, owner)
+def _is_owner(e: Event, key) -> bool:
+    return lineage.owner_matches(e, key.target_user, key.account_id, key.partition)
 
 
 def _minutes_after(use, created_at) -> float:
@@ -52,6 +51,13 @@ def run(events: list[Event], config: dict, history: dict, check1_rows: list[dict
         if c1["verdict"] != "ALERT":
             continue
         key_id = c1["evidence"]["new_key_id"]
+        if not key_id:
+            rows.append(make_row(
+                CHECK, events[by_id[c1["event_id"]]], "NOT_CHECKED", "CREATED_KEY_ID_MISSING",
+                "The creation response has no usable new key ID, so its later use cannot be linked.",
+                {"key_created_event_id": c1["event_id"],
+                 "key_made_for": c1["evidence"]["target_user"]}))
+            continue
         key = history.get(key_id)
         if key is None:
             continue
@@ -74,7 +80,8 @@ def run(events: list[Event], config: dict, history: dict, check1_rows: list[dict
                     f"which is later than the {config['window_minutes']}-minute window.",
                     _evidence(base, created_at, first)))
                 continue
-            earlier = [e for e in events[:created_index] if _is_owner(e, owner) and e.source_ip]
+            earlier = [e for e in events[:created_index] if _is_owner(e, key) and e.source_ip
+                       and e.time < created_at]
             known = sorted({e.source_ip for e in earlier})
             history_facts = {"known_sources": known, "baseline_events": len(earlier)}
             if len(earlier) < config["baseline_min_events"]:
@@ -119,7 +126,7 @@ def run(events: list[Event], config: dict, history: dict, check1_rows: list[dict
         for e in events[created_index + 1:]:
             if e.time - created_at > window:
                 break
-            if e.access_key_id is None and _is_owner(e, owner):
+            if e.access_key_id is None and _is_owner(e, key):
                 rows.append(make_row(
                     CHECK, e, "NOT_CHECKED", "MISSING_KEY_ID",
                     f"This event by {owner} came {round((e.time - created_at).total_seconds() / 60, 1)} "

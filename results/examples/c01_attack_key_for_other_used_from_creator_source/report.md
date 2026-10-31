@@ -1,10 +1,13 @@
 # CloudTrace report
 
 - Input: `c01_attack_key_for_other_used_from_creator_source/events.json`
-- Tool version: 1.0.0
+- Tool version: 1.1.1
 - Time range in log: 2026-01-01T09:10:00Z to 2026-01-01T10:04:00Z
-- Records read: 5; usable: 5 (100.0%)
+- Records read: 5; usable: 5 (input usability 100.0%)
 - Events judged by the checks: 2
+
+- Evaluated rule decisions: 2/2 (excludes NOT_CHECKED; multiple checks may judge one event)
+- Resolved key creations: 1/1; lineage-break decisions: 0
 
 ## Summary
 

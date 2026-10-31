@@ -14,6 +14,7 @@ from cloudtrace import __version__
 from cloudtrace.evaluation import detectors
 from cloudtrace.evaluation.run import LABELS
 from cloudtrace.ingest import load_records
+from cloudtrace.quality import clean
 
 # Stratus Red Team technique pages: the user that receives the new key -> technique name.
 TECHNIQUES = {
@@ -25,14 +26,16 @@ ORDER = ("ct", "ct_any", "b1", "b2", "b2x", "b3")
 
 
 def _key_target(record: dict) -> str | None:
-    key = (record.get("responseElements") or {}).get("accessKey") or {}
-    return key.get("userName")
+    response = record.get("responseElements")
+    key = response.get("accessKey") if isinstance(response, dict) else None
+    name = key.get("userName") if isinstance(key, dict) else None
+    return name if isinstance(name, str) else None
 
 
 def _successful_key_creations(records: list) -> list:
-    return [r for r in records
-            if r.get("eventSource") == "iam.amazonaws.com" and r.get("eventName") == "CreateAccessKey"
-            and not r.get("errorCode")]
+    events, _ = clean(records)
+    return [e.raw for e in events if e.source == "iam.amazonaws.com"
+            and e.name == "CreateAccessKey" and not e.error_code]
 
 
 def run_t3(path, techniques: dict | None = None) -> dict:
@@ -50,12 +53,22 @@ def run_t3(path, techniques: dict | None = None) -> dict:
     keys_never_used = sum(1 for k in det["_history"] if not k["uses"])
     quality = det["_quality"]
     verdicts = Counter((row["verdict"], row["reason"]) for row in det["_rows"])
-    files = 1 if source.is_file() else sum(1 for _ in source.rglob("*.json*"))
+    files = 1 if source.is_file() else sum(
+        p.is_file() and p.name.endswith((".json", ".json.gz")) for p in source.iterdir())
     per_detector = {}
+    # A labelled credential story includes its creation and all linked uses. Check 2 and B3
+    # alert on use events, whereas Check 1 and Check 3 alert on creation events.
+    stories = {r["eventID"]: {r["eventID"]} for r in creations if r.get("eventID")}
+    for key in det["_history"]:
+        if key["created_event_id"] in stories:
+            stories[key["created_event_id"]].update(u["event_id"] for u in key["uses"])
     for name in ORDER:
         events = det[name]["events"]
-        per_detector[name] = {"caught": len(events & set(labelled)),
-                              "other_key_creations_flagged": len(events & unlabelled)}
+        per_detector[name] = {
+            "caught": sum(bool(events & stories.get(eid, {eid})) for eid in labelled),
+            "other_key_creations_flagged": sum(
+                bool(events & stories.get(eid, {eid})) for eid in unlabelled),
+        }
     return {
         "files": files,
         "records": quality["total_records"],

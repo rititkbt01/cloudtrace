@@ -6,12 +6,16 @@
 
 ## How it works
 For every key creation that Check 1 flagged, look back over the window (`window_minutes`, default 60,
-inclusive) for a successful `AttachUserPolicy` on the **same user** with a policy listed in
+inclusive) for a successful `AttachUserPolicy` on the **same user, AWS account and partition** with a policy listed in
 `elevated_policies` (default: AdministratorAccess). If found, the key creation gets an ALERT
 `GRANT_THEN_CREDENTIAL`. The most recent matching grant is reported.
 
 Points: cross_identity 1 + elevated_grant 3 = 4 (medium). Check 3 is separate from Check 2; if both
 fire on the same key you see both rows.
 
-## Not covered (on purpose, to stay inside scope)
+## Not covered by this implementation
 Inline policies, group or role policy attachments, `CreateLoginProfile`, and grants after the key.
+
+These are reductions from the original project brief, which also proposed inline-policy, group
+and login-profile events. The final report should identify the implemented subset rather than
+claiming those originally proposed branches were delivered.

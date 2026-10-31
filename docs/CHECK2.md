@@ -12,7 +12,8 @@ and which later events were signed with it.
 ## Definitions (stated, not hidden)
 - **Window:** `window_minutes` after the key was created (default 60, inclusive).
 - **Usual address:** source addresses of the owner's events **before** the key was created, in this
-  log only. Judged by address only; the tool name (user agent) is kept as evidence.
+  log only, for the same IAM user, AWS account and partition. Equal timestamps do not count as earlier
+  history. Judged by address only; the tool name (user agent) is kept as evidence.
 - **Enough history:** the owner needs at least `baseline_min_events` earlier events (default 3).
 - Version 2 (Stage 7): every **distinct address** that uses the key inside the window is judged once, at its first use there.
   Version 1 judged only the very first use, so an attacker could use the key once from the owner's usual address and
@@ -21,6 +22,7 @@ and which later events were signed with it.
 ## Decision order (first match wins)
 | # | Condition | Verdict | Reason |
 |---|---|---|---|
+| 0 | Creation response lacks a usable new key ID | NOT_CHECKED | CREATED_KEY_ID_MISSING |
 | 1 | No use inside the window (the first use is later) | IGNORED | OUTSIDE_WINDOW |
 | 2 | Owner has too few earlier events | NOT_CHECKED | BASELINE_TOO_SMALL |
 | 3 | Then, for each address used inside the window: the event has no source address | NOT_CHECKED | MISSING_SOURCE_IP |

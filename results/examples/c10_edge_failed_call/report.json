@@ -1,6 +1,6 @@
 {
   "tool": "cloudtrace",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "input": "c10_edge_failed_call/events.json",
   "settings": {
     "window_minutes": 60,
@@ -14,6 +14,14 @@
     "records_read": 1,
     "usable_events": 1,
     "coverage_percent": 100.0,
+    "input_usability_percent": 100.0,
+    "rule_decisions": 1,
+    "evaluated_rule_decisions": 1,
+    "rule_evaluability_percent": 100.0,
+    "successful_key_creations": 0,
+    "resolved_key_creations": 0,
+    "key_creation_resolution_percent": null,
+    "lineage_break_decisions": 0,
     "candidate_events": 1,
     "alerts": {
       "high": 0,
@@ -31,6 +39,7 @@
     "reordered": false,
     "unusable": [],
     "missing_fields": {},
+    "invalid_fields": {},
     "time_start": "2026-01-01T10:00:00Z",
     "time_end": "2026-01-01T10:00:00Z"
   },

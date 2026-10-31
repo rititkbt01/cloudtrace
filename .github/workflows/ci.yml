@@ -30,3 +30,5 @@ jobs:
           cloudtrace analyze data/fixtures/c01_attack_key_for_other_used_from_creator_source/events.json --out out
           test -s out/report.md
           test -s out/report.json
+          cloudtrace tune data/fixtures/c07_attack_use_delayed_past_window/events.json --out out/tune.md
+          test -s out/tune.md

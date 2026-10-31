@@ -17,7 +17,25 @@ Design choices:
 - An empty `accessKeyId` becomes `None`. AWS documents that this field can be empty. Check 2 later
   uses this to say `NOT_CHECKED / MISSING_KEY_ID` instead of guessing.
 - Times without a zone are treated as UTC; times with an offset are converted to UTC.
-- Coverage ("evaluated X of Y events") will be added in Stage 4, when the checks say which events they looked at.
+- Optional fields with invalid JSON types are normalized to unavailable values and counted in
+  invalid_fields. A malformed errorCode makes the record unusable (INVALID_ERROR_CODE), so it
+  cannot be interpreted as a successful call.
+- Caller account and partition are resolved from the ARN; contradictory identity account values
+  are not trusted. Resource account uses recipientAccountId when provided.
+
+## Three separate measures
+- input_usability_percent = usable deduplicated events / input records. The old coverage_percent
+  JSON field is a compatibility alias for this measure, not a detection-coverage claim.
+- rule_evaluability_percent = decisions other than NOT_CHECKED / all emitted rule decisions.
+  Several checks can emit decisions on one event. With no decisions the percentage is null.
+- key_creation_resolution_percent = successful creations with a key ID, target, scoped account
+  and resolved creator / successful creations. With no creations the percentage is null.
+- lineage_break_decisions counts explicit CREATED_KEY_ID_MISSING and MISSING_KEY_ID decisions.
+  Key-creation resolution does not imply every later use was observable or linked.
+
+A never-used key emits no Check 2 decision. These measures are not a count of all possible rules
+or all attacks that could occur. Equal timestamps retain input order; this offline tool cannot
+infer causal order for events with identical timestamps.
 
 Reading files is in `cloudtrace.ingest.load_records(path)`: a `.json` / `.json.gz` file
 (`{"Records": [...]}` or a plain list) or a folder of them. Problems raise `IngestError` with a plain-language message.

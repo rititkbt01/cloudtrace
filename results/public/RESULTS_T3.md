@@ -1,6 +1,6 @@
 # T3: public log result (totals only)
 
-Tool version 1.0.0. Source: Invictus Incident Response, Sigma-AWS (GitHub), MIT licence. The log files are not stored in this repository and nothing from them (accounts, users, addresses, event IDs) is printed here.
+Tool version 1.1.1. Source: Invictus Incident Response, Sigma-AWS (GitHub), MIT licence. The log files are not stored in this repository and nothing from them (accounts, users, addresses, event IDs) is printed here.
 
 ## The log
 

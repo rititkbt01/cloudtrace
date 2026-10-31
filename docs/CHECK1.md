@@ -17,13 +17,18 @@ and automation look like, so on its own it is only a low note.
 4. Otherwise unknown, so the result is `NOT_CHECKED / TARGET_UNKNOWN`.
 
 IAM user names are not case sensitive, so `John` and `john` count as the same user.
-A user ARN with a path (`user/team/alice`) is reduced to the name `alice`.
+A user ARN with a path (`user/team/alice`) is reduced to the name `alice`. Identity comparison
+also requires the same AWS account and partition. Conflicting request/response target names
+produce TARGET_UNKNOWN. Unknown or inconsistent caller identity produces CALLER_UNKNOWN.
+A missing target account produces TARGET_ACCOUNT_UNKNOWN.
 
 ## Decision order (first match wins)
 | # | Condition | Verdict | Reason |
 |---|---|---|---|
 | 1 | The call failed | IGNORED | FAILED_CALL |
 | 2 | Target cannot be worked out | NOT_CHECKED | TARGET_UNKNOWN |
+| 2a | Creator identity cannot be resolved | NOT_CHECKED | CALLER_UNKNOWN |
+| 2b | Target account or partition cannot be resolved | NOT_CHECKED | TARGET_ACCOUNT_UNKNOWN |
 | 3 | Target is the caller (name given) | IGNORED | SELF_KEY |
 | 3 | Target is the caller (name left out) | IGNORED | SELF_KEY_IMPLICIT |
 | 4 | Caller is an approved automation role (`allowed_roles`) | IGNORED | ALLOW_LISTED_ROLE |
@@ -42,4 +47,9 @@ Real onboarding, key hand-over, and automation not on the approved list. Use `al
 
 ## Key history
 `cloudtrace.lineage.build()` links each successfully created key to who made it, who it is for,
-and every later event signed with that key (time, address, tool). Check 2 will use it in Stage 5.
+and later events signed with that key (time, address, tool), including CreateAccessKey calls
+that mint another key. Uses must have the same caller account and partition as the key owner.
+
+Prefer full session-issuer role ARNs in allowed_roles. Legacy role-name entries are retained for
+compatibility and trust that role name across every supplied account. Such broad exceptions
+can hide approved-role abuse; their effect is explicitly tested by mutation M9.

@@ -1,6 +1,6 @@
 # False-alarm cost of Check 2 version 2 (generated logs)
 
-Tool version 1.1.0. Seeds [1, 2, 3, 4, 5], 40 stories of each kind (all data made up; truth is how each story was built).
+Tool version 1.1.1. Seeds [1, 2, 3, 4, 5], 40 stories of each kind (all data made up; truth is how each story was built).
 
 Check 2 version 1 judged only the first use of a key. Version 2 judges every different address used with the key inside the window (see docs/CHECK2.md). Version 2 catches an attacker who first uses the key from the owner's usual address; this file measures what it costs in false alarms. Version 1 is a frozen copy of the earlier code (`evaluation/check2_v1.py`). 'Flagged' means CloudTrace (medium and above) raised an alert on the story.
 

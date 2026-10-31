@@ -1,10 +1,13 @@
 # CloudTrace report
 
 - Input: `events.json`
-- Tool version: 0.1.0
+- Tool version: 1.1.1
 - Time range in log: 2026-01-01T10:00:00Z to 2026-01-01T10:00:00Z
-- Records read: 1; usable: 1 (100.0%)
-- Key-creation events examined: 1
+- Records read: 1; usable: 1 (input usability 100.0%)
+- Events judged by the checks: 1
+
+- Evaluated rule decisions: 1/1 (excludes NOT_CHECKED; multiple checks may judge one event)
+- Resolved key creations: 0/0; lineage-break decisions: 0
 
 ## Summary
 

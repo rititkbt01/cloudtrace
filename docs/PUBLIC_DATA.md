@@ -36,3 +36,9 @@ Both are attacks. The log contains no other successful key creation and no norma
 - With only two labelled key creations it is a **spot check**, not a measurement of detection rates.
 - It cannot measure false alarms, because the log has no normal key stories.
 - The log was first opened to check its format. No setting or weight was changed afterwards.
+
+## Attribution unit
+Each labelled key creation is a credential story. A detector receives credit when it flags
+the creation or any linked use of that key. Several alerted events still count as one story.
+The manual label mapping is specific to this pinned dataset, not a general inference of intent.
+There are no labelled benign key-creation scenarios from which to estimate precision.

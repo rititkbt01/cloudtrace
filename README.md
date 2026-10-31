@@ -2,22 +2,24 @@
 
 **CloudTrace reads cloud activity logs, finds risky changes to access keys, and explains every decision.**
 It is a small, free, read-only Python tool made for the CyberFox Society Cybersecurity R&D Internship
-(project area: Security Operations & Detection Engineering). Version 1.1.0.
+(project area: Security Operations & Detection Engineering). Version 1.1.1.
 
 ## The problem in plain words
 
 An *access key* is a secret code that lets a program sign in to a cloud account. When an attacker gets into
 an account, one common trick is to create a new key for some account, so they can come back later even
-after the first break-in is found. Existing detection rules can flag "a key was created", but they look
-at one log line at a time, raise many false alarms on normal administrator work, and do not explain
-themselves.
+after the first break-in is found. Standalone creation rules may flag legitimate administration. CloudTrace adds linked key-use evidence,
+explicit decisions and controlled comparisons with rebuilt SigmaHQ and Elastic rules. Existing
+correlation rules also exist; this project does not claim to invent credential correlation.
 
-CloudTrace follows each new key from the moment it is created to its first use, applies three simple checks,
+CloudTrace builds key history and evaluates each distinct source address inside the creation-based window
+for cross-identity keys that are not excluded by an approved-role exception. It applies three checks,
 and **gives a reason for every decision**, including the decisions not to alert.
 
 ## Quick start (about five minutes, no cloud account needed)
 
-Python 3.11 or newer is needed.
+Python 3.11 or newer is needed. The commands below use Windows. On Linux/macOS, replace the
+activation line with `source .venv/bin/activate`.
 
 ```
 python -m venv .venv
@@ -46,11 +48,12 @@ More commands, options and exit codes are in [docs/USAGE.md](docs/USAGE.md).
 | Check | Question | Result |
 |---|---|---|
 | 1 | Did one identity create an access key for a *different* identity? | Low note only (too common alone) |
-| 2 | Was that key used, within 60 minutes, from an address its owner never used earlier in the log? | Adds evidence; high if used from the creator's own address |
-| 3 | Was the account given administrator rights just before the key was created? | Medium |
+| 2 | Was that key used, within 60 minutes, from an address its owner never used earlier in the log? | High (5 points), or 8 from the creator's address |
+| 3 | Was a configured elevated policy attached with AttachUserPolicy to the same user in the same AWS account within 60 minutes before a cross-identity key creation? | Medium (4 points) |
 
 Severity is a sum of named evidence points that are printed in the report. There is no machine learning.
-When the log does not contain what a check needs, the result is **NOT_CHECKED** with a reason; the tool never guesses.
+Missing or unresolved evidence produces **NOT_CHECKED** where a check is applicable. Input usability,
+rule evaluability and key-creation resolution are reported separately. See [docs/QUALITY.md](docs/QUALITY.md).
 
 ## What was measured
 
@@ -73,6 +76,8 @@ All numbers are in `results/`. Details and caveats are in [docs/EVALUATION.md](d
 
 - Generated attacks resemble what the checks look for, so good results on them show the code works as designed,
   not that it finds real attacks. Real-world performance is **not** claimed.
+- Self-created keys are tracked but not evaluated by Checks 2 and 3. All 40 synthetic self-created-key
+  attacks are missed: overall synthetic recall is 120/160 (75%), versus 120/120 in the implemented scope.
 - "New address" means new *in the log you give it*; a short log makes many things look new.
 - A key that is made but never used gets only a low note from Check 1 (Check 3 is the only way to reach medium).
 - The rebuilt comparison rules are re-implementations of published logic on a whole file, not the vendors' products.
@@ -103,3 +108,11 @@ cloudtrace evaluate-public data/public/Sigma-AWS/CloudTrail --out results/public
 ```
 
 The same seeds always give the same numbers.
+
+## Submission fixes and verification
+
+See [CHANGELOG.md](CHANGELOG.md) for version 1.1.1 and [docs/SUBMISSION.md](docs/SUBMISSION.md)
+for the final release checklist, scope reductions, metric units and remaining research limitations.
+Use the final `pytest -q` output as the test count; do not reuse a count from an earlier report.
+
+Verification: [docs/VERIFICATION.md](docs/VERIFICATION.md) and [fresh_check_result.txt](fresh_check_result.txt).

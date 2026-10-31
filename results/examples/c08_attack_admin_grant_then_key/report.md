@@ -1,10 +1,13 @@
 # CloudTrace report
 
 - Input: `c08_attack_admin_grant_then_key/events.json`
-- Tool version: 1.0.0
+- Tool version: 1.1.1
 - Time range in log: 2026-01-01T10:00:00Z to 2026-01-01T10:20:00Z
-- Records read: 2; usable: 2 (100.0%)
+- Records read: 2; usable: 2 (input usability 100.0%)
 - Events judged by the checks: 1
+
+- Evaluated rule decisions: 2/2 (excludes NOT_CHECKED; multiple checks may judge one event)
+- Resolved key creations: 1/1; lineage-break decisions: 0
 
 ## Summary
 

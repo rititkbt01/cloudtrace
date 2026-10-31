@@ -57,8 +57,20 @@ def run(events: list[Event], config: dict) -> list[dict]:
                 )
             )
             continue
+        if not lineage.caller_known(e):
+            rows.append(make_row(
+                CHECK, e, "NOT_CHECKED", "CALLER_UNKNOWN",
+                "The creating identity cannot be resolved, so a cross-identity change is not proven.",
+                evidence))
+            continue
+        if not e.account_id or not e.partition:
+            rows.append(make_row(
+                CHECK, e, "NOT_CHECKED", "TARGET_ACCOUNT_UNKNOWN",
+                "The target account or partition is missing, so identities cannot be compared.",
+                evidence))
+            continue
         me = lineage.caller_user_name(e)
-        if me and lineage.same_user(me, target):
+        if lineage.owner_matches(e, target, e.account_id, e.partition):
             if how == "request":
                 rows.append(
                     make_row(
@@ -83,7 +95,7 @@ def run(events: list[Event], config: dict) -> list[dict]:
                     )
                 )
             continue
-        if e.role_name and e.role_name in config["allowed_roles"]:
+        if lineage.role_allowed(e, config["allowed_roles"]):
             rows.append(
                 make_row(
                     CHECK,

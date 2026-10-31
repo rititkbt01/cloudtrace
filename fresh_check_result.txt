@@ -1,0 +1,21 @@
+CloudTrace fresh-environment check: ALL STEPS PASSED
+Date: 2026-10-31   OS: Linux 6.18.57   Python: 3.12.14
+
+PASS  Python is 3.11 or newer  (3.12.14)
+PASS  Key files are in the clone
+PASS  requirements-dev.txt lists pytest and ruff
+PASS  pip install -r requirements-dev.txt
+PASS  pip install -e . (installs the cloudtrace command)
+PASS  installed cloudtrace entry point
+PASS  cloudtrace --help
+PASS  pytest -q (all tests)  (316 passed in 7.25s)
+PASS  ruff check . (style)  (All checks passed!)
+PASS  analyze sample case C01 (expects a HIGH finding)
+PASS  analyze --fail-on high exits with code 1 on C01
+PASS  tune on case C07 matches the committed example
+PASS  evaluate runs
+PASS  regenerated RESULTS.md equals the committed file
+PASS  regenerated results.json equals the committed file
+PASS  regenerated SENSITIVITY.md equals the committed file
+PASS  regenerated DELAY.md equals the committed file
+PASS  regenerated CHECK2_COST.md equals the committed file

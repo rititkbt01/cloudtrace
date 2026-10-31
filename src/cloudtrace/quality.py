@@ -36,6 +36,10 @@ class Event:
     raw: dict = field(repr=False, default_factory=dict)
     identity_user_name: str | None = None  # userIdentity.userName (IAM users)
     role_name: str | None = None  # role behind an assumed-role session, if any
+    account_id: str | None = None  # account in which the requested resource lives
+    caller_account_id: str | None = None
+    partition: str | None = None
+    role_arn: str | None = None
 
 
 @dataclass
@@ -47,6 +51,7 @@ class QualityReport:
     reordered: bool = False
     unusable: list = field(default_factory=list)  # {"index", "event_id", "reason"}
     missing_fields: dict = field(default_factory=dict)  # field name -> count
+    invalid_fields: dict = field(default_factory=dict)  # wrong JSON types, normalized safely
     time_start: str | None = None
     time_end: str | None = None
 
@@ -59,6 +64,7 @@ class QualityReport:
             "reordered": self.reordered,
             "unusable": list(self.unusable),
             "missing_fields": dict(self.missing_fields),
+            "invalid_fields": dict(self.invalid_fields),
             "time_start": self.time_start,
             "time_end": self.time_end,
         }
@@ -85,28 +91,53 @@ def _dig(record: dict, dotted: str):
     return cur
 
 
+def _text(value) -> str | None:
+    return value if isinstance(value, str) and value else None
+
+
+def arn_scope(value) -> tuple[str | None, str | None]:
+    """Return the partition and account of a well-formed account-scoped ARN."""
+    if not isinstance(value, str):
+        return None, None
+    parts = value.split(":", 5)
+    if (len(parts) != 6 or parts[0] != "arn" or not parts[1]
+            or len(parts[4]) != 12 or not parts[4].isascii() or not parts[4].isdigit()):
+        return None, None
+    return parts[1], parts[4]
+
+
 def _to_event(record: dict, time: datetime) -> Event:
     ident = record.get("userIdentity")
     ident = ident if isinstance(ident, dict) else {}
     request = record.get("requestParameters")
     response = record.get("responseElements")
     issuer = _dig(record, "userIdentity.sessionContext.sessionIssuer.userName")
+    partition, arn_account = arn_scope(ident.get("arn"))
+    stated_account = _text(ident.get("accountId"))
+    caller_account = arn_account if stated_account in (None, arn_account) else None
+    account = _text(record.get("recipientAccountId")) or caller_account
+    if account and (len(account) != 12 or not account.isascii() or not account.isdigit()):
+        account = None
     return Event(
         event_id=record["eventID"],
         time=time,
         source=record["eventSource"],
         name=record["eventName"],
-        identity_type=ident.get("type") or None,
-        identity_arn=ident.get("arn") or None,
-        access_key_id=ident.get("accessKeyId") or None,
-        source_ip=record.get("sourceIPAddress") or None,
-        user_agent=record.get("userAgent") or None,
-        error_code=record.get("errorCode") or None,
+        identity_type=_text(ident.get("type")),
+        identity_arn=_text(ident.get("arn")),
+        access_key_id=_text(ident.get("accessKeyId")),
+        source_ip=_text(record.get("sourceIPAddress")),
+        user_agent=_text(record.get("userAgent")),
+        error_code=_text(record.get("errorCode")),
         request=request if isinstance(request, dict) else {},
         response=response if isinstance(response, dict) else {},
         raw=record,
-        identity_user_name=ident.get("userName") or None,
+        identity_user_name=_text(ident.get("userName")),
         role_name=issuer if isinstance(issuer, str) and issuer else None,
+        account_id=account,
+        caller_account_id=caller_account,
+        partition=partition,
+        role_arn=_text(_dig(record, "userIdentity.sessionContext.sessionIssuer.arn")),
     )
 
 
@@ -121,6 +152,8 @@ def _unusable_reason(record, index):
     t = _parse_time(record["eventTime"])
     if t is None:
         return "BAD_EVENT_TIME", None
+    if record.get("errorCode") is not None and not isinstance(record["errorCode"], str):
+        return "INVALID_ERROR_CODE", None
     return None, t
 
 
@@ -143,6 +176,20 @@ def clean(records: list) -> tuple[list[Event], QualityReport]:
             continue
         seen[record["eventID"]] = record
         kept.append(_to_event(record, time))
+        containers = ("userIdentity", "requestParameters", "responseElements",
+                      "userIdentity.sessionContext", "userIdentity.sessionContext.sessionIssuer",
+                      "responseElements.accessKey")
+        texts = WATCHED + ("userIdentity.type", "userIdentity.userName", "userIdentity.accountId",
+                           "recipientAccountId", "errorCode",
+                           "userIdentity.sessionContext.sessionIssuer.userName",
+                           "userIdentity.sessionContext.sessionIssuer.arn",
+                           "requestParameters.userName", "requestParameters.policyArn",
+                           "responseElements.accessKey.userName",
+                           "responseElements.accessKey.accessKeyId")
+        for name, expected in [(n, dict) for n in containers] + [(n, str) for n in texts]:
+            value = _dig(record, name)
+            if value is not None and not isinstance(value, expected):
+                report.invalid_fields[name] = report.invalid_fields.get(name, 0) + 1
         for name in WATCHED:
             value = _dig(record, name)
             if value is None or value == "":

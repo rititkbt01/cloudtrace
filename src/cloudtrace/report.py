@@ -5,7 +5,7 @@ The output is the same every time for the same input (no clock values).
 """
 import json
 
-from cloudtrace import __version__, baselines, engine
+from cloudtrace import __version__, baselines, engine, lineage, quality
 
 SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
 
@@ -37,6 +37,14 @@ def build(records: list, config: dict | None = None, input_name: str = "input",
     alerts = [v for v in verdicts if v["verdict"] == "ALERT"]
     q = result["quality"]
     total = q["total_records"]
+    normalized, _ = quality.clean(records)
+    creations = [e for e in normalized if lineage.is_create_access_key(e) and not e.error_code]
+    resolved = sum(bool(lineage.created_key_id(e) and lineage.resolve_target(e)[0]
+                        and e.account_id and e.partition and lineage.caller_known(e))
+                   for e in creations)
+    evaluated = sum(v["verdict"] != "NOT_CHECKED" for v in verdicts)
+    lineage_breaks = sum(v["reason"] in {"CREATED_KEY_ID_MISSING", "MISSING_KEY_ID"}
+                         for v in verdicts)
     report = {
         "tool": "cloudtrace",
         "version": __version__,
@@ -46,6 +54,16 @@ def build(records: list, config: dict | None = None, input_name: str = "input",
             "records_read": total,
             "usable_events": q["usable_events"],
             "coverage_percent": round(100 * q["usable_events"] / total, 1) if total else 0.0,
+            "input_usability_percent": round(100 * q["usable_events"] / total, 1) if total else 0.0,
+            "rule_decisions": len(verdicts),
+            "evaluated_rule_decisions": evaluated,
+            "rule_evaluability_percent": round(100 * evaluated / len(verdicts), 1)
+            if verdicts else None,
+            "successful_key_creations": len(creations),
+            "resolved_key_creations": resolved,
+            "key_creation_resolution_percent": round(100 * resolved / len(creations), 1)
+            if creations else None,
+            "lineage_break_decisions": lineage_breaks,
             "candidate_events": len({v["event_id"] for v in verdicts}),
             "alerts": {s: sum(1 for v in alerts if v["severity"] == s)
                        for s in ("high", "medium", "low")},
@@ -91,8 +109,16 @@ def to_markdown(report: dict) -> str:
            f"- Tool version: {report['version']}",
            f"- Time range in log: {q['time_start'] or 'n/a'} to {q['time_end'] or 'n/a'}",
            (f"- Records read: {s['records_read']}; usable: {s['usable_events']} "
-            f"({s['coverage_percent']}%)"),
+            f"(input usability {s['input_usability_percent']}%)"),
            f"- Events judged by the checks: {s['candidate_events']}", ""]
+    if s["not_checked"] or q["unusable"]:
+        out += [(f"Evidence incomplete: {s['not_checked']} rule decision(s) could not be evaluated; "
+                 f"{len(q['unusable'])} input record(s) unusable."), ""]
+    out += [(f"- Evaluated rule decisions: {s['evaluated_rule_decisions']}/{s['rule_decisions']} "
+             "(excludes NOT_CHECKED; multiple checks may judge one event)"),
+            (f"- Resolved key creations: {s['resolved_key_creations']}/"
+             f"{s['successful_key_creations']}; lineage-break decisions: {s['lineage_break_decisions']}"),
+            ""]
 
     out += ["## Summary", "", "| Result | Count |", "|---|---|",
             f"| Findings, high | {s['alerts']['high']} |",
@@ -132,6 +158,9 @@ def to_markdown(report: dict) -> str:
     if q["missing_fields"]:
         out.append("- Missing fields: " + ", ".join(
             f"{k} ({n})" for k, n in sorted(q["missing_fields"].items())))
+    if q["invalid_fields"]:
+        out.append("- Invalid optional field types: " + ", ".join(
+            f"{k} ({n})" for k, n in sorted(q["invalid_fields"].items())))
     out.append("")
 
     out += ["## Key history", ""]

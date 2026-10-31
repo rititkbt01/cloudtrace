@@ -31,6 +31,8 @@ def run(events: list[Event], config: dict, check1_rows: list[dict]) -> list[dict
             if key_event.time - e.time > window:
                 break
             if (e.source == lineage.IAM and e.name == "AttachUserPolicy" and not e.error_code
+                    and e.account_id == key_event.account_id
+                    and e.partition == key_event.partition
                     and e.request.get("policyArn") in config["elevated_policies"]
                     and isinstance(e.request.get("userName"), str)
                     and lineage.same_user(e.request["userName"], target)):

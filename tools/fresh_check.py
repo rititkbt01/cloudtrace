@@ -63,7 +63,8 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
     rep = Report()
     rep.step("Python is 3.11 or newer", sys.version_info >= (3, 11), platform.python_version())
-    need = ("pyproject.toml", "requirements-dev.txt", "README.md", "ETHICS.md", "rules/default.toml",
+    need = ("pyproject.toml", "requirements-dev.txt", "README.md", "ETHICS.md", "docs/TUNING.md",
+            "results/tune/c07_tune.md", "rules/default.toml",
             C01)
     missing = [n for n in need if not (ROOT / n).is_file()]
     rep.step("Key files are in the clone", not missing, "missing: " + ", ".join(missing)
@@ -84,6 +85,10 @@ def main(argv=None) -> int:
             code, out = run([py, "-m", "pip", "install", "-e", "."])
             rep.step("pip install -e . (installs the cloudtrace command)", code == 0,
                      "" if code == 0 else out[-300:])
+            entrypoint = tmp / "venv" / ("Scripts/cloudtrace.exe" if sys.platform == "win32"
+                                         else "bin/cloudtrace")
+            code, out = run([entrypoint, "--help"]) if entrypoint.is_file() else (1, "")
+            rep.step("installed cloudtrace entry point", code == 0 and "tune" in out)
         code, out = run([py, "-m", "cloudtrace", "--help"])
         rep.step("cloudtrace --help", code == 0 and "analyze" in out)
         code, out = run([py, "-m", "pytest", "-q"])
